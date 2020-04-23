@@ -21,9 +21,9 @@ function Routes() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="login">
-				<Stack.Screen name="Login" component={Login} />
-				<Stack.Screen name="Register" component={Register} />
-				<Stack.Screen name="Home" component={Home} />
+				<Stack.Screen name="Login" component={Login} options = {{ title:false, headerTransparent: true }}/>
+				<Stack.Screen name="Register" component={Register} options = {{ title:false, headerTransparent: true }}/>
+				<Stack.Screen name="Home" component={Home} options = {{ title:false, headerTransparent: true }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
