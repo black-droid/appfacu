@@ -10,8 +10,9 @@ import { Button,
         KeyboardAvoidingView,
        } from 'react-native';
 
-import useForm from 'hook-form';
 import Constants from 'expo-constants';
+
+
 
 
 export default class App extends React.Component {
@@ -37,7 +38,8 @@ export default class App extends React.Component {
 
 		this.setState({ data });
 
-	};
+  };
+  
 
 	render() {
             let sexoSelected = this.state.sexos.map((v,k) => {
@@ -52,56 +54,55 @@ export default class App extends React.Component {
                             <TextInput
                                 style = {styles.input}
                                 onChangeText={(text) => this.setState({ nome: text })}
-                                textContentType = 'name'
+                                id = 'name'
                             />
                             <Text style = {styles.smallfont}>Idade</Text>
                             <TextInput
                                 style = {styles.input}
                                 onChangeText={(text) => this.setState({ idade: text })}
-                                textContentType = 'number'
+                                id = 'number'
                                 keyboardType = 'numeric'
                             />
                             <Text style = {styles.smallfont}>Telefone</Text>
                             <TextInput
                                 style = {styles.input}
                                 onChangeText={(text) => this.setState({ telefone: text })}
-                                textContentType = 'telephoneNumber'
+                                id = 'telephoneNumber'
                                 keyboardType = 'numeric'
                             />
                             <Text style = {styles.smallfont}>CPF</Text>
                             <TextInput
                                 style = {styles.input}
                                 onChangeText={(text) => this.setState({ cpf: text })}
-                                textContentType = 'cpf'
+                                id = 'cpf'
                                 keyboardType = 'numeric'
                             />
                             <Text style = {styles.smallfont}>Email</Text>
                             <TextInput
                                 style = {styles.input}
                                 onChangeText={(text) => this.setState({ email: text })}
-                                textContentType = 'email'
+                                id = "email"
                             />
                                 <Text style = {styles.smallfont}>Sexo: </Text>
                                 <Picker style={styles.pickerSexo} 
                                 mode="dialog"
                                 selectedValue = {this.state.sexoSelecionado} 
                                 onValueChange = {(itemValue, itemIndex) => this.setState({sexoSelecionado: itemValue})}
-                                textContentType = 'sexo'
+                                id = 'sexo'
                                 >
                                     {sexoSelected}
                                 </Picker>
                                 
                                 <Text style = {styles.smallfont}>Buscar por CEP</Text>
                                 <TextInput
-                                    style = {styles.inputcep}
+                                    style = {styles.input}
                                     placeholder="Digite o CEP: "
                                     onChangeText={(text) => this.setState({ cep: text })}
                                     keyboardType = 'numeric'
-                                    min={0}
-                                    max={8}
+                                    onSubmitEditing ={() => this.buscar()}
+                                    
 
                                 />
-                                <Button  title="Buscar" onPress={() => this.buscar()} />
 
                             <Text style = {styles.smallfont}>Logradouro</Text>
                             <TextInput style = {styles.input} placeholder="Digite o logradouro: " value = {this.state.data.logradouro || ''}/>
@@ -162,7 +163,7 @@ const styles = StyleSheet.create({
     marginTop:15,
     alignItems: 'center',
     justifyContent: 'center',
-    width: "90%",
+    width: "50%",
     height: 43,
     padding: 10,
     marginBottom: 15,

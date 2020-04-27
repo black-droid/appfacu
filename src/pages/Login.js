@@ -14,7 +14,6 @@ import {
 
 } from 'react-native';
 import Constants from 'expo-constants';
-import { LinearGradient } from 'expo-linear-gradient';
 
 
 export default function Login({ navigation }) {
@@ -50,7 +49,7 @@ export default function Login({ navigation }) {
             <TouchableOpacity style = {styles.button} title="Login" onPress={navigateToHome}>
               <Text>Login</Text>
             </TouchableOpacity>
-            <TouchableOpacity style = {styles.btnRegister} title="Login" onPress={navigateToRegister}>
+            <TouchableOpacity style = {styles.btnRegister} title="Registrar" onPress={navigateToRegister}>
             <Text>Registre-se</Text>
             </TouchableOpacity>
           </KeyboardAvoidingView>
