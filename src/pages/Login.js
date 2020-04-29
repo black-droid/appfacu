@@ -20,8 +20,8 @@ export default function Login({ navigation }) {
   function navigateToRegister() {
     navigation.navigate('Register');
   }
-  function navigateToHome() {
-    navigation.navigate('Home');
+  function navigateToDrawer() {
+    navigation.navigate('Drawer');
   }
   return (
     <SafeAreaView  style = {styles.container}>
@@ -46,7 +46,7 @@ export default function Login({ navigation }) {
                   autoCorrect  = {false}
                   onChangeText = {() => {}}
                   />
-            <TouchableOpacity style = {styles.button} title="Login" onPress={navigateToHome}>
+            <TouchableOpacity style = {styles.button} title="Login" onPress={navigateToDrawer}>
               <Text>Login</Text>
             </TouchableOpacity>
             <TouchableOpacity style = {styles.btnRegister} title="Registrar" onPress={navigateToRegister}>
