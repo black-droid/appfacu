@@ -4,28 +4,26 @@ import {
         StyleSheet,
         Image,
         Text,
-        Button,
         TouchableOpacity,
         TextInput,
         KeyboardAvoidingView,
         SafeAreaView,
-        ScrollView,
-        ImageBackground
 
 } from 'react-native';
 import Constants from 'expo-constants';
 
 
-export default function Login({ navigation }) {
+export default function Login ({ navigation }) {
   function navigateToRegister() {
     navigation.navigate('Register');
   }
   function navigateToDrawer() {
     navigation.navigate('Drawer');
   }
+
+  
   return (
     <SafeAreaView  style = {styles.container}>
-      <ScrollView style={styles.scrollView}>
         <View style = {styles.container}>
           <KeyboardAvoidingView style = {styles.container}>
             <Image
@@ -37,24 +35,23 @@ export default function Login({ navigation }) {
                   style = {styles.input}
                   placeholder  = 'Email ou usuario'
                   autoCorrect  = {false}
-                  onChangeText = {() => {}}
+                  onChangeText={(text) => this.setState({ usu: text })}
                   />
             <Text>Senha</Text>
             <TextInput
                   style = {styles.input}
                   placeholder  = 'Senha'
                   autoCorrect  = {false}
-                  onChangeText = {() => {}}
+                  onChangeText={(text) => this.setState({ senha: text })}
                   />
-            <TouchableOpacity style = {styles.button} title="Login" onPress={navigateToDrawer}>
+            <TouchableOpacity style = {styles.button} title="Login"  onPress={navigateToDrawer}>
               <Text>Login</Text>
             </TouchableOpacity>
-            <TouchableOpacity style = {styles.btnRegister} title="Registrar" onPress={navigateToRegister}>
-            <Text>Registre-se</Text>
+            <TouchableOpacity style = {styles.button} title="Registrar" onPress={navigateToRegister}>
+            <Text>Cadastre-se</Text>
             </TouchableOpacity>
           </KeyboardAvoidingView>
         </View>
-      </ScrollView >
     </SafeAreaView >
   );
 }
@@ -109,7 +106,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#fff',
-    marginTop:2,
+    marginTop:10,
     alignItems: 'center',
     justifyContent: 'center',
     width: "90%",

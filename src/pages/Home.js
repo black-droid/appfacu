@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Button,TouchableOpacity, TextInput } from 'react-native';
 
-// import { Container } from './styles';
+
 
 export default function HomeScreen({ navigation }) {
   return (
