@@ -7,7 +7,7 @@ import Login from './pages/Login';
 import Register from './pages/register';
 
 import Drout from './Drawer';
-import HomeScreen from './pages/Home';
+import TabB from './tabbutton';
 
 const Stack = createStackNavigator();
 
@@ -17,7 +17,7 @@ function Routes() {
       <Stack.Navigator initialRouteName="Login">
 				<Stack.Screen name="Login" component={Login} options = {{ title:false, headerTransparent: true }}/>
 				<Stack.Screen name="Register" component={Register} options = {{ title:false, headerTransparent: true }}/>
-        <Stack.Screen name="Drawer" component={Drout} options = {{ title:false }} />
+        <Stack.Screen name="TabButton" component={TabB} options = {{ title:false, gesturesEnabled: false }}  />
       </Stack.Navigator>
     </NavigationContainer>
   );

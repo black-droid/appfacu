@@ -9,14 +9,16 @@
   },
   "dependencies": {
     "@egjs/hammerjs": "^2.0.17",
+    "@react-native-community/datetimepicker": "2.1.0",
     "@react-native-community/masked-view": "0.1.5",
-    "@react-navigation/bottom-tabs": "^5.2.5",
-    "@react-navigation/drawer": "^5.4.0",
-    "@react-navigation/native": "^5.1.4",
-    "@react-navigation/stack": "^5.2.9",
+    "@react-navigation/bottom-tabs": "^5.2.8",
+    "@react-navigation/drawer": "^5.5.1",
+    "@react-navigation/native": "^5.1.7",
+    "@react-navigation/stack": "^5.2.14",
     "expo": "~36.0.0",
+    "expo-calendar": "~8.0.0",
     "expo-linear-gradient": "~8.0.0",
-    "firebase": "^7.14.0",
+    "firebase": "^7.14.2",
     "formik": "^2.1.4",
     "hook-form": "0.0.1",
     "masked-text": "0.0.3",
@@ -37,14 +39,11 @@
     "react-navigation-stack": "1.9.3",
     "react-navigation-tabs": "2.5.5",
     "text-mask": "0.0.2",
-    "yup": "^0.28.4",
-    "expo-calendar": "~8.0.0",
-    "@react-native-community/datetimepicker": "2.1.0",
-    "expo-barcode-scanner": "~8.0.0"
+    "yup": "^0.28.4"
   },
   "devDependencies": {
-    "babel-preset-expo": "~8.0.0",
-    "@babel/core": "^7.0.0"
+    "@babel/core": "^7.9.6",
+    "babel-preset-expo": "~8.0.0"
   },
   "private": true
 }

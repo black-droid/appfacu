@@ -18,7 +18,7 @@ export default function Login ({ navigation }) {
     navigation.navigate('Register');
   }
   function navigateToDrawer() {
-    navigation.navigate('Drawer');
+    navigation.navigate('TabButton');
   }
 
   
