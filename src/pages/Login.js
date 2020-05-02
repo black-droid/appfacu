@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
         View,
         StyleSheet,
@@ -11,17 +11,38 @@ import {
 
 } from 'react-native';
 import Constants from 'expo-constants';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 
 
 export default function Login ({ navigation }) {
+  const user = {
+    'email': 'Nathan@email.com',
+    'nome': 'nathan',
+    'senha': '12345678'
+  }
+  
+  const [Usuario,setUsuario] = useState('')
+  const [Senha,setSenha]     = useState('')
+
+
+  function navigateToDrawer() {
+    if(Usuario == user['email'] | Usuario == user['nome']){
+      if(Senha == user['senha']){
+        navigation.navigate('TabButton');
+      }
+      else{
+        alert('senha incorreta');
+      }
+    }
+    else{
+      alert('Email ou Usuario incorretos');
+    }
+  }
+
   function navigateToRegister() {
     navigation.navigate('Register');
   }
-  function navigateToDrawer() {
-    navigation.navigate('TabButton');
-  }
-
-  
   return (
     <SafeAreaView  style = {styles.container}>
         <View style = {styles.container}>
@@ -33,17 +54,20 @@ export default function Login ({ navigation }) {
             <Text>Email ou Usuario</Text>
             <TextInput
                   style = {styles.input}
-                  placeholder  = 'Email ou usuario'
+                  placeholder  = 'Email ou Usuario'
                   autoCorrect  = {false}
-                  onChangeText={(text) => this.setState({ usu: text })}
+                  onChangeText={(text) => setUsuario(text)}
                   />
             <Text>Senha</Text>
             <TextInput
                   style = {styles.input}
                   placeholder  = 'Senha'
                   autoCorrect  = {false}
-                  onChangeText={(text) => this.setState({ senha: text })}
+                  onChangeText={(text) => setSenha(text)}
+                  secureTextEntry={true}
+                  password={true}
                   />
+            {/*<Ionicons style={styles.searchIcon} name="md-eye" size={32} color="black" />*/}
             <TouchableOpacity style = {styles.button} title="Login"  onPress={navigateToDrawer}>
               <Text>Login</Text>
             </TouchableOpacity>
@@ -80,6 +104,16 @@ const styles = StyleSheet.create({
     height: '100%',
     paddingTop: 50,
   },
+  searchSection: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+},
+searchIcon: {
+    padding: 10,
+},
   logo:{
     width: 106,
     height:100,

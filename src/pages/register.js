@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, 
         StyleSheet, 
         Text, 
+        TouchableOpacity,
         TextInput, 
         View, 
         Picker,        
@@ -11,11 +12,12 @@ import { Button,
        } from 'react-native';
 
 import Constants from 'expo-constants';
-
+import { StackNavigator } from 'react-navigation';
 
 
 
 export default class App extends React.Component {
+
 
 	state = {
 		cep: '',
@@ -40,9 +42,8 @@ export default class App extends React.Component {
 
   };
   
-
 	render() {
-            let sexoSelected = this.state.sexos.map((v,k) => {
+       let sexoSelected = this.state.sexos.map((v,k) => {
       return <Picker.Item key={k} value={k} label={v.sexo}/>
     });
 		return (
@@ -114,6 +115,9 @@ export default class App extends React.Component {
                             <TextInput style = {styles.input} placeholder="Digite seu Bairro: " value = {this.state.data.bairro || ''}/>
                             <Text style = {styles.smallfont}>UF</Text>
                             <TextInput style = {styles.input} placeholder="Digite seu estado: " value = {this.state.data.uf || ''}/>
+                            <TouchableOpacity style = {styles.button} title="Login" onPress={() => this.props.navigation.navigate('Login')}>
+                              <Text>Cadastre-se</Text>
+                            </TouchableOpacity>
                         </KeyboardAvoidingView>
                     </View>
                 </ScrollView >
