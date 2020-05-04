@@ -12,7 +12,7 @@ const Tab = createBottomTabNavigator();
 
 function TabB() {
   return (
-
+//criaçao do tab button com controle de telas e rotas
       <Tab.Navigator 
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {

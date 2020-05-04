@@ -12,7 +12,8 @@ import TabB from './tabbutton';
 
 
 const Stack = createStackNavigator();
-
+//Controle de rotas para navegação
+//chamo o tabbutton para definir ele como "componente controle " das telas q n usam o stack
 function Routes() {
   return (
     <NavigationContainer>

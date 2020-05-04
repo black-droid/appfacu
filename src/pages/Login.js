@@ -8,7 +8,6 @@ import {
         TextInput,
         KeyboardAvoidingView,
         SafeAreaView,
-        ImageBackground
 
 } from 'react-native';
 import Constants from 'expo-constants';
@@ -16,17 +15,19 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 export default function Login ({ navigation }) {
+//usuario ficticio
   const user = {
     'email': 'Nathan@email.com',
     'nome': 'nathan',
     'senha': '12345678'
   }
-
+//states de controle e comandos do botao olho para inputs
   const [Eye, setEye]        = useState(true)
   const [Olho, setOlho]      = useState('md-eye')
+//states dos inputs
   const [Usuario,setUsuario] = useState('')
   const [Senha,setSenha]     = useState('')
-
+//funçao de controle do botao olho para input senha
   function visualizacao(){
     if(Eye == true){
         setEye(false)
@@ -37,7 +38,10 @@ export default function Login ({ navigation }) {
         setOlho('md-eye')
       }
     }
-
+//navegaçao com validaçao real com dados ficticios de uma variavel para exemplo
+//controle de entrada
+//se senha,email, ou nome incorretos ele permanece na mesma page e exibe um alerta
+//caso dados corretos ele navega pra pagina de controle q vai indicar a pagina inicial do interior do app
   function navigateToDrawer() {
     if(Usuario == user['email'] | Usuario == user['nome']){
       if(Senha == user['senha']){
@@ -51,7 +55,7 @@ export default function Login ({ navigation }) {
       alert('Email ou Usuario incorretos');
     }
   }
-
+//navegaçao pro register
   function navigateToRegister() {
     navigation.navigate('Register');
   }
@@ -63,7 +67,6 @@ export default function Login ({ navigation }) {
             style = {styles.logo}
             source = {require('../assets/logo.png')}
             />
-            
             <TextInput
                   style = {styles.input}
                   placeholder  = 'Email ou Usuario'
