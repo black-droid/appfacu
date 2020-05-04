@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import NotificationsScreen from './pages/Notifications';
+import CountScreen from './pages/count';
 import HomeScreen from './pages/Home';
 
 
@@ -22,7 +22,7 @@ function TabB() {
             iconName = focused
               ? 'ios-information-circle'
               : 'ios-information-circle-outline';
-          } else if (route.name === 'Notifications') {
+          } else if (route.name === 'Count') {
             iconName = focused ? 'ios-list-box' : 'ios-list';
           }
 
@@ -36,7 +36,7 @@ function TabB() {
       }}
     >
         <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Notifications" component={NotificationsScreen} />
+        <Tab.Screen name="Count" component={CountScreen} />
       </Tab.Navigator>
 
   );

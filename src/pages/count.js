@@ -3,11 +3,11 @@ import { View, Text, Button,TouchableOpacity, TextInput, SafeAreaView } from 're
 
 // import { Container } from './styles';
 
-export default function NotificationsScreen({ navigation }) {
+export default function CountScreen({ navigation }) {
   return (
     <SafeAreaView>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Notifications Screen</Text>
+        <Text>Count Screen</Text>
       </View>
     </SafeAreaView>
   );

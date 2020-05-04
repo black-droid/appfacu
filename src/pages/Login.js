@@ -8,11 +8,11 @@ import {
         TextInput,
         KeyboardAvoidingView,
         SafeAreaView,
+        ImageBackground
 
 } from 'react-native';
 import Constants from 'expo-constants';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
 
 
 export default function Login ({ navigation }) {
@@ -21,10 +21,22 @@ export default function Login ({ navigation }) {
     'nome': 'nathan',
     'senha': '12345678'
   }
-  
+
+  const [Eye, setEye]        = useState(true)
+  const [Olho, setOlho]      = useState('md-eye')
   const [Usuario,setUsuario] = useState('')
   const [Senha,setSenha]     = useState('')
 
+  function visualizacao(){
+    if(Eye == true){
+        setEye(false)
+        setOlho('md-eye-off')
+      }
+      else{
+        setEye(true)
+        setOlho('md-eye')
+      }
+    }
 
   function navigateToDrawer() {
     if(Usuario == user['email'] | Usuario == user['nome']){
@@ -51,29 +63,38 @@ export default function Login ({ navigation }) {
             style = {styles.logo}
             source = {require('../assets/logo.png')}
             />
-            <Text>Email ou Usuario</Text>
+            
             <TextInput
                   style = {styles.input}
                   placeholder  = 'Email ou Usuario'
                   autoCorrect  = {false}
                   onChangeText={(text) => setUsuario(text)}
                   />
-            <Text>Senha</Text>
-            <TextInput
-                  style = {styles.input}
-                  placeholder  = 'Senha'
-                  autoCorrect  = {false}
-                  onChangeText={(text) => setSenha(text)}
-                  secureTextEntry={true}
-                  password={true}
-                  />
-            {/*<Ionicons style={styles.searchIcon} name="md-eye" size={32} color="black" />*/}
-            <TouchableOpacity style = {styles.button} title="Login"  onPress={navigateToDrawer}>
-              <Text>Login</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style = {styles.button} title="Registrar" onPress={navigateToRegister}>
-            <Text>Cadastre-se</Text>
-            </TouchableOpacity>
+            
+            <View style={styles.lado}>
+              <TextInput
+                    style = {styles.input2}
+                    placeholder  = 'Senha'
+                    autoCorrect  = {false}
+                    onChangeText={(text) => setSenha(text)}
+                    secureTextEntry={Eye}
+                    password={true}
+                    />
+              <TouchableOpacity style={styles.button2} onPress = {visualizacao}>
+                <Ionicons style={styles.searchIcon} name={Olho} size={34} color="grey" />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.div}>
+              <TouchableOpacity style = {styles.button} title="Login"  onPress={navigateToDrawer}>
+                <Text>Login</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style = {styles.button} title="Registrar" onPress={navigateToRegister}>
+                <Text>Cadastre-se</Text>
+              </TouchableOpacity>
+              <TouchableOpacity  style = {styles.lado}>
+                <Text >esqueceu a senha?</Text>
+              </TouchableOpacity>
+            </View>
           </KeyboardAvoidingView>
         </View>
     </SafeAreaView >
@@ -88,7 +109,10 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     width: "100%",
-    marginHorizontal: 20,
+    height: 20,
+    paddingBottom:70,
+    paddingTop: 50,
+    
 
   },
 
@@ -102,7 +126,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: "100%",
     height: '100%',
-    paddingTop: 50,
+    paddingTop: 35,
   },
   searchSection: {
     flex: 1,
@@ -110,10 +134,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
-},
-searchIcon: {
-    padding: 10,
-},
+  },
+  searchIcon: {
+      padding: 5,
+  },
+  lado: {
+    flex:1,
+    flexDirection:'row',
+    width:'88%', 
+    alignItems:'flex-start',
+  },
+  div: {
+    flex:1,
+    marginTop:60,
+    width:'100%',
+    alignItems: 'center'
+  },
   logo:{
     width: 106,
     height:100,
@@ -130,11 +166,24 @@ searchIcon: {
     marginTop:15,
     alignItems: 'center',
     justifyContent: 'center',
-    width: "90%",
+    width: "88%",
     height: 43,
     padding: 10,
     marginBottom: 15,
-    borderRadius:7,
+    borderRadius:0,
+    fontSize:17,
+    color: '#222',
+  },
+  input2: {
+    backgroundColor: '#fff',
+    marginTop:15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: "80%",
+    height: 43,
+    padding: 10,
+    marginBottom: 15,
+    borderRadius:0,
     fontSize:17,
     color: '#222',
   },
@@ -146,6 +195,18 @@ searchIcon: {
     width: "90%",
     height: 43,
     borderRadius:17,
+  },
+  button2:{
+    width:'20%',
+    height: 43,
+    backgroundColor: '#fff',
+    marginTop:15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
+    marginBottom: 15,
+    borderRadius:0,
+    fontSize:17,
   },
   bigfont:{
     fontSize:20,

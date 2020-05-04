@@ -8,7 +8,7 @@ import {
   } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 
-import NotificationsScreen from './pages/Notifications';
+import CountScreen from './pages/count';
 import HomeScreen from './pages/Home';
 
 function CustomDrawerContent(props) {
@@ -35,7 +35,7 @@ function Drout() {
 
       <Drawer.Navigator initialRouteName = 'Home'>
         <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="Notifications" component={NotificationsScreen} />
+        <Drawer.Screen name="Notifications" component={CountScreen} />
       </Drawer.Navigator>
 
   );
