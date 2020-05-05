@@ -5,10 +5,10 @@ import { View, Text, Button,TouchableOpacity, TextInput, SafeAreaView } from 're
 
 export default function CountScreen({ navigation }) {
   return (
-    <SafeAreaView>
+
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>Count Screen</Text>
       </View>
-    </SafeAreaView>
+
   );
 }
