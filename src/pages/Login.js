@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {
-        View,
+import {View,
+        Alert,
         StyleSheet,
         Image,
         Text,
@@ -10,20 +10,19 @@ import {
         SafeAreaView,
 
 } from 'react-native';
-import Constants from 'expo-constants';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
-export default function Login ({ navigation }) {
+export default function LoginScreen ({ navigation }) {
 //usuario ficticio
-  const user = {
-    'email': 'Nathan@email.com',
+  const user = {'email': 'Nathan@email.com',
     'nome': 'nathan',
-    'senha': '12345678'
+    'senha': '123'
   }
 //states de controle e comandos do botao olho para inputs
   const [Eye, setEye]        = useState(true)
-  const [Olho, setOlho]      = useState('md-eye')
+  const [Olho, setOlho]      = useState('eye')
 //states dos inputs
   const [Usuario,setUsuario] = useState('')
   const [Senha,setSenha]     = useState('')
@@ -31,73 +30,73 @@ export default function Login ({ navigation }) {
   function visualizacao(){
     if(Eye == true){
         setEye(false)
-        setOlho('md-eye-off')
-      }
+        setOlho('eye-off')
+    }
       else{
         setEye(true)
-        setOlho('md-eye')
+        setOlho('eye')
       }
-    }
+  }
 //navegaçao com validaçao real com dados ficticios de uma variavel para exemplo
 //controle de entrada
 //se senha,email, ou nome incorretos ele permanece na mesma page e exibe um alerta
 //caso dados corretos ele navega pra pagina de controle q vai indicar a pagina inicial do interior do app
-  function navigateToDrawer() {
+  function navigateToTab() {
     if(Usuario == user['email'] | Usuario == user['nome']){
       if(Senha == user['senha']){
-        navigation.navigate('TabButton');
+        navigation.navigate('Tab');
       }
       else{
-        alert('senha incorreta');
+        Alert.alert('Senha incorreta','Tente novamente!');
       }
     }
     else{
-      alert('Email ou Usuario incorretos');
+      Alert.alert('E-mail ou usuário incorreto');
     }
-  }
-//navegaçao pro register
-  function navigateToRegister() {
-    navigation.navigate('Register');
   }
   return (
     <SafeAreaView  style = {styles.container}>
         <View style = {styles.container}>
-          <KeyboardAvoidingView style = {styles.container}>
-            <Image
-            style = {styles.logo}
-            source = {require('../assets/logo.png')}
-            />
-            <TextInput
-                  style = {styles.input}
-                  placeholder  = 'Email ou Usuario'
-                  autoCorrect  = {false}
-                  onChangeText={(text) => setUsuario(text)}
-                  />
-            
-            <View style={styles.lado}>
-              <TextInput
-                    style = {styles.input2}
-                    placeholder  = 'Senha'
-                    autoCorrect  = {false}
-                    onChangeText={(text) => setSenha(text)}
-                    secureTextEntry={Eye}
-                    password={true}
-                    />
-              <TouchableOpacity style={styles.button2} onPress = {visualizacao}>
-                <Ionicons style={styles.searchIcon} name={Olho} size={34} color="grey" />
-              </TouchableOpacity>
-            </View>
+          <KeyboardAvoidingView behavior='padding'
+            style = {styles.container}>
+
+            <Image style = {styles.logo}
+              source = {require('../../assets/logo.png')}/>            
+            <TextInput style = {styles.input}
+              placeholder  = 'e-mail ou usuário'
+              autoCorrect  = {false}
+              onChangeText={(text) => setUsuario(text)}/>
+
+            <View style={styles.PositionEye}>
+              <TextInput style = {styles.input2}
+                placeholder  = 'senha'
+                autoCorrect  = {false}
+                onChangeText={(text) => setSenha(text)}
+                secureTextEntry={Eye}
+                password={true}/>
+              <Icon style={styles.icon}
+                onPress = {visualizacao}
+                name={Olho} size={30} color='grey'/>
+            </View>    
+
+
             <View style={styles.div}>
-              <TouchableOpacity style = {styles.button} title="Login"  onPress={navigateToDrawer}>
-                <Text>Login</Text>
+              <TouchableOpacity style = {styles.button}
+                title="Login"
+                onPress={navigateToTab}>
+                <Text style = {styles.Text}>
+                  LOGIN
+                </Text>
               </TouchableOpacity>
-              <TouchableOpacity style = {styles.button} title="Registrar" onPress={navigateToRegister}>
-                <Text>Cadastre-se</Text>
-              </TouchableOpacity>
-              <TouchableOpacity  style = {styles.lado}>
-                <Text >esqueceu a senha?</Text>
+              <TouchableOpacity style = {styles.button}
+                title="Registrar"
+                onPress={() => navigation.navigate('Register')}>
+                <Text style = {styles.Text}>
+                  CADASTRE-SE
+                </Text>
               </TouchableOpacity>
             </View>
+
           </KeyboardAvoidingView>
         </View>
     </SafeAreaView >
@@ -106,129 +105,66 @@ export default function Login ({ navigation }) {
 
 
 const styles = StyleSheet.create({
-  containerSc: {
-
-    marginTop: Constants.statusBarHeight,
-  },
-  scrollView: {
-    width: "100%",
-    height: 20,
-    paddingBottom:70,
-    paddingTop: 50,
-    
-
-  },
-
-  text: {
-    fontSize: 42,
-  },
-    container: {
-    paddingBottom:70,
-    backgroundColor: '#00d0f8',
+  container: {
+    flex: 1,
+    backgroundColor: '#6ccff6',
     alignItems: 'center',
     justifyContent: 'center',
     width: "100%",
     height: '100%',
-    paddingTop: 35,
-  },
-  searchSection: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  searchIcon: {
-      padding: 5,
-  },
-  lado: {
-    flex:1,
-    flexDirection:'row',
-    width:'88%', 
-    alignItems:'flex-start',
-  },
-  div: {
-    flex:1,
-    marginTop:60,
-    width:'100%',
-    alignItems: 'center'
   },
   logo:{
-    width: 106,
-    height:100,
-
+    marginTop: "20%",
+    marginBottom: "10%",
+    width: 120,
+    height:120,
   },
-  indication: {
-    color: '#fff',
-    fontSize:15,
-    marginTop:10,
-
+  PositionEye: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'baseline',
+  },
+  div: {
+    flex:2,
+    width:'100%',
+    alignItems: 'center',
   },
   input: {
+    marginTop: 10,
     backgroundColor: '#fff',
-    marginTop:15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: "88%",
-    height: 43,
+    width: "90%",
     padding: 10,
-    marginBottom: 15,
-    borderRadius:0,
-    fontSize:17,
+    fontSize:18,
     color: '#222',
+    borderRadius:8,
   },
   input2: {
+    marginTop: 10,
     backgroundColor: '#fff',
-    marginTop:15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: "80%",
-    height: 43,
+    width: "90%",
     padding: 10,
-    marginBottom: 15,
-    borderRadius:0,
-    fontSize:17,
+    fontSize:18,
     color: '#222',
+    borderRadius:8,
   },
   button: {
-    backgroundColor: '#fff',
-    marginTop:10,
+    backgroundColor: '#05a',
     alignItems: 'center',
+    margin: 5,
     justifyContent: 'center',
     width: "90%",
-    height: 43,
-    borderRadius:17,
+    height: 45,
+    borderRadius:8,
   },
-  button2:{
-    width:'20%',
-    height: 43,
-    backgroundColor: '#fff',
-    marginTop:15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 10,
-    marginBottom: 15,
-    borderRadius:0,
-    fontSize:17,
+  icon:{
+    position: "absolute",
+    marginLeft: "78%",
+    marginTop: 18,     
   },
-  bigfont:{
-    fontSize:20,
-  },
-  btnRegister: {
-    marginRight:150,
-  },
-  submit:{
-    fontSize:15,
-    color: '#fff',
-  },
-  btnPasword:{
-    marginTop: 10,
-    marginRight:140,
-  },
-  background: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  Text:{
+    fontSize: 16,
+    fontWeight: "bold",
+    color: '#fff'
 
-  }
+  },
 });
