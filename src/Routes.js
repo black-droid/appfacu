@@ -1,29 +1,112 @@
 import * as React from 'react';
-import { AsyncStorage, View, Text, Button } from 'react-native';
+import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import Login from './pages/Login';
-import Register from './pages/register';
 
-import Drout from './Drawer';
-import TabB from './tabbutton';
+import LoginScreen from './pages/Login';
+import RegisterScreen from './pages/Register';
+import CountScreen from './pages/Count';
+import HomeScreen from './pages/Home';
+import QRCodeScreen from './pages/QRCode';
+import ScheduleScreen from './pages/Schedule';
 
+StatusBar.setBackgroundColor("#05a");
+StatusBar.setBarStyle("light-content");
+
+
+
+
+const Tab = createBottomTabNavigator();
+//criaçao do tab button com controle de telas e rotas
+export function TabButton() {
+  return (
+      <Tab.Navigator 
+        initialRouteName="Home"
+        tabBarOptions={{          
+          activeTintColor: "#FFF",
+          inactiveTintColor: "#059",
+          showIcon: true,
+          showLabel: true,
+          labelPosition: "below-icon",
+          labelStyle: {
+          fontSize: 12,
+        },
+        style:{
+          backgroundColor: "#099"
+        },
+        }}>
+
+        <Tab.Screen name="Home" component={HomeScreen}
+          options={{
+            title: "INICIO",
+            tabBarIcon: ({color, size}) => 
+            (<Icon name="home" size={30} color={color} />),
+          }}/>
+        <Tab.Screen name="Count" component={CountScreen}
+          options={{
+            title: "PERFIL",
+            tabBarIcon: ({color, size}) => 
+            (<Icon name="account" size={30} color={color} />)        
+          }}/>
+        <Tab.Screen name="QRCode" component={QRCodeScreen}
+          options={{
+            title: "QRCODE",
+            tabBarIcon: ({color, size}) => 
+            (<Icon name="qrcode" size={30} color={color} />)        
+          }}/>
+        <Tab.Screen name="Schedule" component={ScheduleScreen}
+          options={{
+            title: "AGENDA",
+            tabBarIcon: ({color, size}) => 
+            (<Icon name="calendar-clock" size={30} color={color} />)        
+          }}/>
+      </Tab.Navigator>
+  );
+}
 
 
 const Stack = createStackNavigator();
 //Controle de rotas para navegação
 //chamo o tabbutton para definir ele como "componente controle " das telas q n usam o stack
-function Routes() {
+export default function Routes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-				<Stack.Screen name="Login" component={Login} options = {{ title:false, headerTransparent: true }}/>
-				<Stack.Screen name="Register" component={Register} options = {{ title:false, headerTransparent: true }}/>
-        <Stack.Screen name="TabButton" component={TabB} options = {{ title:false, headerLeft:null}}  />
+      <Stack.Navigator 
+        initialRouteName="Login"
+        screenOptions={{
+          headerTitleAlign: "center",
+          headerTintColor: '#FFF',
+          headerPressColorAndroid: '#FF0',
+          gestureEnabled: true,
+          gestureDirection: "horizontal",
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+
+        }}>
+        <Stack.Screen name="Login" component={LoginScreen} 
+          options = {{ 
+            title: false,
+            headerTransparent: true,
+          }}/>
+        <Stack.Screen name="Register" component={RegisterScreen}
+          options = {{ 
+            title:"REGISTRO",
+            headerStyle: {
+              backgroundColor: '#088',          
+              },
+              headerTitleStyle: {
+              fontSize: 20,
+              fontWeight: 'bold',
+              },
+          }}/>
+        <Stack.Screen name="Tab" component={TabButton}
+          options = {{ 
+            title: false,
+            headerTransparent: true,
+          }}/>                  
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-export default Routes;
