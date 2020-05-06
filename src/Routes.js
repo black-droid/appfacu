@@ -27,7 +27,7 @@ export function TabButton() {
         initialRouteName="Home"
         tabBarOptions={{          
           activeTintColor: "#FFF",
-          inactiveTintColor: "#059",
+          inactiveTintColor: "#6ccff6",
           showIcon: true,
           showLabel: true,
           labelPosition: "below-icon",
@@ -35,7 +35,7 @@ export function TabButton() {
           fontSize: 12,
         },
         style:{
-          backgroundColor: "#099"
+          backgroundColor: "#3c9dc2"
         },
         }}>
 
@@ -94,7 +94,7 @@ export default function Routes() {
           options = {{ 
             title:"REGISTRO",
             headerStyle: {
-              backgroundColor: '#088',          
+              backgroundColor: '#3c9dc2',          
               },
               headerTitleStyle: {
               fontSize: 20,
