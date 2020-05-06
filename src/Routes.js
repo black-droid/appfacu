@@ -80,7 +80,6 @@ export default function Routes() {
           headerTitleAlign: "center",
           headerTintColor: '#FFF',
           headerPressColorAndroid: '#FF0',
-          gestureEnabled: true,
           gestureDirection: "horizontal",
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
 
@@ -105,6 +104,8 @@ export default function Routes() {
           options = {{ 
             title: false,
             headerTransparent: true,
+            gesturesEnabled: false,
+            headerLeft:null
           }}/>                  
       </Stack.Navigator>
     </NavigationContainer>

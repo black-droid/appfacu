@@ -17,6 +17,7 @@ export default function QRCodeScreen({ navigation }) {
           value= "QRCODE"
           color="#000"
           backgroundColor="#fff"
+
           />
 
         <Button title="Voltar"
