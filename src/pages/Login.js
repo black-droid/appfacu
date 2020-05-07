@@ -16,7 +16,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function LoginScreen ({ navigation }) {
 //usuario ficticio
-  const user = {'email': 'Nathan@email.com',
+  const user = {
+    'email': 'nathan@email.com',
     'nome': 'nathan',
     'senha': '123'
   }
@@ -120,12 +121,12 @@ const styles = StyleSheet.create({
     height:120,
   },
   PositionEye: {
-    flex: 1,
     flexDirection: 'row',
-    alignItems: 'baseline',
+    alignItems: "baseline"
   },
   div: {
-    flex:2,
+    flex: 2,
+    marginTop: 40,
     width:'100%',
     alignItems: 'center',
   },
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
     borderRadius:8,
   },
   button: {
-    backgroundColor: "#3c9dc2",
+    backgroundColor: '#06a',
     alignItems: 'center',
     margin: 5,
     justifyContent: 'center',
