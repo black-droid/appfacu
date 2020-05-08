@@ -11,109 +11,117 @@ import { Button,
 				KeyboardAvoidingView,
 			 } from 'react-native';
 
-import Constants from 'expo-constants';
-
 export default class App extends React.Component {
-
-
 	state = {
-		cep: '',
+		nome: '',
+		idade: '',
 		telefone:'',
+		cpf: '',
+		email:'',
 		data: {},
-				nome: '',
-				idade: '',
-				sexoSelecionado: 0,
-				sexos: [
-						{key: 1, sexo: 'Masculino'},
-						{key: 2, sexo: 'Feminino'}
-			],
-				cpf: '',
-				email:'',
+		cep: '',
+		numero: '',
+		sexoSelecionado: 0,
+		sexos: [
+			{key: 1, sexo: 'Masculino'},
+			{key: 2, sexo: 'Feminino'},
+		],
 	};
-
 	buscar = async () => {
 		let data = await fetch(`https://viacep.com.br/ws/${this.state.cep}/json/`);
 		data = await data.json();
-
 		this.setState({ data });
-
 	};
 	
 	render() {
 		let sexoSelected = this.state.sexos.map((v,k) => {
-		return <Picker.Item key={k} value={k} label={v.sexo}/>
+			return <Picker.Item key={k} value={k} label={v.sexo}/>
 		});
 		return (
 			<SafeAreaView style={styles.container}>
-				<ScrollView style={styles.scrollView}>
+				<ScrollView>
 					<View>
-						<KeyboardAvoidingView style = {styles.container}>
+						<KeyboardAvoidingView behavior='padding'
+							style = {styles.container2}>
 								<Text style = {styles.smallfont}>Nome</Text>
 								<TextInput
-										style = {styles.input}
-										onChangeText={(text) => this.setState({ nome: text })}
-										id = 'name'
+									style = {styles.input}
+									onChangeText={(text) => this.setState({ nome: text })}
+									id = 'name'
 								/>
-								<Text style = {styles.smallfont}>Idade</Text>
+								<Text style = {styles.smallfont}>Data de Nascimento</Text>
 								<TextInput
-										style = {styles.input}
-										onChangeText={(text) => this.setState({ idade: text })}
-										id = 'number'
-										keyboardType = 'numeric'
+									style = {styles.input}
+									onChangeText={(text) => this.setState({ idade: text })}
+									id = 'number'
+									keyboardType = 'numeric'
 								/>
 								<Text style = {styles.smallfont}>Telefone</Text>
 								<TextInput
-										style = {styles.input}
-										onChangeText={(text) => this.setState({ telefone: text })}
-										id = 'telephoneNumber'
-										keyboardType = 'numeric'
+									style = {styles.input}
+									onChangeText={(text) => this.setState({ telefone: text })}
+									id = 'telephoneNumber'
+									keyboardType = 'numeric'
 								/>
 								<Text style = {styles.smallfont}>CPF</Text>
 								<TextInput
-										style = {styles.input}
-										onChangeText={(text) => this.setState({ cpf: text })}
-										id = 'cpf'
-										keyboardType = 'numeric'
+									style = {styles.input}
+									onChangeText={(text) => this.setState({ cpf: text })}
+									id = 'cpf'
+									keyboardType = 'numeric'
 								/>
 								<Text style = {styles.smallfont}>Email</Text>
 								<TextInput
-										style = {styles.input}
-										onChangeText={(text) => this.setState({ email: text })}
-										id = "email"
+									style = {styles.input}
+									onChangeText={(text) => this.setState({ email: text })}
+									id = "email"
 								/>
-										<Text style = {styles.smallfont}>Sexo: </Text>
-										<Picker style={styles.pickerSexo} 
-										mode="dialog"
-										selectedValue = {this.state.sexoSelecionado} 
-										onValueChange = {(itemValue, itemIndex) => this.setState({sexoSelecionado: itemValue})}
-										id = 'sexo'
-										>
-												{sexoSelected}
-										</Picker>
-										
-										<Text style = {styles.smallfont}>Buscar por CEP</Text>
-										<TextInput
-												style = {styles.input}
-												placeholder="Digite o CEP: "
-												onChangeText={(text) => this.setState({ cep: text })}
-												keyboardType = 'numeric'
-												onSubmitEditing ={() => this.buscar()}
-												
-
-										/>
-
+								<Text style = {styles.smallfont}>Sexo: </Text>
+								<Picker style={styles.pickerSexo} 
+									mode="dialog"
+									selectedValue = {this.state.sexoSelecionado} 
+									onValueChange = {(itemValue, itemIndex) => this.setState({sexoSelecionado: itemValue})}
+									id = 'sexo'
+								>{sexoSelected}
+								</Picker>								
+								<Text style = {styles.smallfont}>Buscar por CEP</Text>
+								<TextInput
+									style = {styles.input}
+									placeholder="Digite o CEP: "
+									onChangeText={(text) => this.setState({ cep: text })}
+									keyboardType = 'numeric'
+									onSubmitEditing ={() => this.buscar()}
+								/>
 								<Text style = {styles.smallfont}>Logradouro</Text>
-								<TextInput style = {styles.input} placeholder="Digite o logradouro: " value = {this.state.data.logradouro || ''}/>
+								<TextInput style = {styles.input}
+									placeholder="Digite o logradouro:"
+									value = {this.state.data.logradouro || ''}
+								/>
 								<Text style = {styles.smallfont}>Número</Text>
-								<TextInput style = {styles.input} placeholder="(11) 9999-9999: " onChangeText={(text) => this.setState({ numero: text })}/>
+								<TextInput style = {styles.input}
+									placeholder="Nº"
+									onChangeText={(text) => this.setState({ numero: text })}
+									keyboardType = 'numeric'
+								/>
 								<Text style = {styles.smallfont}>Localidade</Text>
-								<TextInput style = {styles.input} placeholder="Digite sua localidade: " value = {this.state.data.localidade || ''}/>
+								<TextInput style = {styles.input}
+									placeholder="Digite sua localidade: "
+									value = {this.state.data.localidade || ''}
+								/>
 								<Text style = {styles.smallfont}>Bairro</Text>
-								<TextInput style = {styles.input} placeholder="Digite seu Bairro: " value = {this.state.data.bairro || ''}/>
+								<TextInput style = {styles.input}
+									placeholder="Digite seu Bairro: "
+									value = {this.state.data.bairro || ''}
+								/>
 								<Text style = {styles.smallfont}>UF</Text>
-								<TextInput style = {styles.input} placeholder="Digite seu estado: " value = {this.state.data.uf || ''}/>
-								<TouchableOpacity style = {styles.button} title="Login" onPress={() => this.props.navigation.navigate('Login')}>
-									<Text>Cadastre-se</Text>
+								<TextInput style = {styles.input} 
+									placeholder="Digite seu estado: " 
+									value = {this.state.data.uf || ''}
+								/>
+								<TouchableOpacity style = {styles.button} 
+									title="Login" 
+									onPress={() => this.props.navigation.navigate('Login')}>
+									<Text style={styles.text}>CONCLUIR</Text>
 								</TouchableOpacity>
 						</KeyboardAvoidingView>
 					</View>
@@ -124,86 +132,45 @@ export default class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
-	containerSc: {
-
-		marginTop: Constants.statusBarHeight,
-	},
-	scrollView: {
-		width: "100%",
-		marginHorizontal: 20,
-
-	},
-	text: {
-		fontSize: 42,
-	},
-		container: {
-		paddingBottom:70,
+	container: {
+		flex: 1,
 		backgroundColor: '#6ccff6',
-		alignItems: 'center',
-		justifyContent: 'center',
-		width: "100%",
-		height: '100%',
-		paddingTop: 70,
-		
+	},
+	container2: {
+		marginTop: 20,
+		marginHorizontal: 20,
+		height: 1100
 	},
 	input: {
 		backgroundColor: '#fff',
-		marginTop:15,
-		alignItems: 'center',
-		justifyContent: 'center',
-		width: "90%",
-		height: 43,
+		marginBottom: 10,
 		padding: 10,
-		marginBottom: 15,
-		borderRadius:7,
-		fontSize:17,
+		borderRadius: 5,
+		fontSize: 18,
 		color: '#222',
 	},
-	inputcep: {
-		backgroundColor: '#fff',
-		marginTop:15,
-		alignItems: 'center',
-		justifyContent: 'center',
-		width: "50%",
-		height: 43,
-		padding: 10,
-		marginBottom: 15,
-		borderRadius:7,
-		fontSize:17,
-		color: '#222',
-		flex: 1,
+	pickerSexo:{
+		borderWidth: 1,
+		borderColor: "#fff",
+		marginBottom: 10,
+		height: 40,
+		backgroundColor: "#fff",
 	},
 	button: {
-		backgroundColor: '#fff',
-		marginTop:2,
+		backgroundColor: '#06a',
+		margin: 40,
+		padding: 10,
 		alignItems: 'center',
 		justifyContent: 'center',
-		width: "90%",
-		height: 43,
-		borderRadius:17,
-	},
-	bigfont:{
-		fontSize:20,
-		
+		borderRadius: 20,
 	},
 	smallfont: {
-		marginRight:150,
-		flex: 1,
-		
-			
+		fontWeight: 'bold',
+		fontSize: 18,			
 	},
-	submit:{
-		fontSize:15,
-		color: '#fff',
-	},
-		pickerSexo:{
-				flex:1,
-				width: "35%",
-				height: 43,
-
-		},
-	containerSc: {
-
-		marginTop: Constants.statusBarHeight,
+	text: {
+		fontSize: 18,
+		fontWeight: 'bold',
+		color: "#fff"
 	},
 });

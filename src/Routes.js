@@ -13,9 +13,8 @@ import HomeScreen from './pages/Home';
 import QRCodeScreen from './pages/QRCode';
 import ScheduleScreen from './pages/Schedule';
 
-StatusBar.setBackgroundColor("#05a");
+StatusBar.setBackgroundColor("#06a");
 StatusBar.setBarStyle("light-content");
-
 
 
 
@@ -26,8 +25,8 @@ export function TabButton() {
       <Tab.Navigator 
         initialRouteName="Home"
         tabBarOptions={{          
-          activeTintColor: "#FFF",
-          inactiveTintColor: "#6ccff6",
+          activeTintColor: "#f20",
+          inactiveTintColor: "#fff",
           showIcon: true,
           showLabel: true,
           labelPosition: "below-icon",
@@ -35,7 +34,7 @@ export function TabButton() {
           fontSize: 12,
         },
         style:{
-          backgroundColor: "#3c9dc2"
+          backgroundColor: "#06a"
         },
         }}>
 
@@ -43,25 +42,25 @@ export function TabButton() {
           options={{
             title: "INICIO",
             tabBarIcon: ({color, size}) => 
-            (<Icon name="home" size={30} color={color} />),
+            (<Icon name="home" size={25} color={color} />),
           }}/>
         <Tab.Screen name="Count" component={CountScreen}
           options={{
             title: "PERFIL",
             tabBarIcon: ({color, size}) => 
-            (<Icon name="account" size={30} color={color} />)        
+            (<Icon name="account" size={25} color={color} />)        
           }}/>
         <Tab.Screen name="QRCode" component={QRCodeScreen}
           options={{
             title: "QRCODE",
             tabBarIcon: ({color, size}) => 
-            (<Icon name="qrcode" size={30} color={color} />)        
+            (<Icon name="qrcode" size={25} color={color} />)        
           }}/>
         <Tab.Screen name="Schedule" component={ScheduleScreen}
           options={{
             title: "AGENDA",
             tabBarIcon: ({color, size}) => 
-            (<Icon name="calendar-clock" size={30} color={color} />)        
+            (<Icon name="calendar-clock" size={25} color={color} />)        
           }}/>
       </Tab.Navigator>
   );
@@ -78,8 +77,9 @@ export default function Routes() {
         initialRouteName="Login"
         screenOptions={{
           headerTitleAlign: "center",
-          headerTintColor: '#FFF',
-          headerPressColorAndroid: '#FF0',
+          headerTintColor: '#fff',
+          headerPressColorAndroid: '#fa0',
+          gestureEnabled: false,
           gestureDirection: "horizontal",
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
 
@@ -91,23 +91,27 @@ export default function Routes() {
           }}/>
         <Stack.Screen name="Register" component={RegisterScreen}
           options = {{ 
-            title:"REGISTRO",
+            title:"CADASTRO",
             headerStyle: {
-              backgroundColor: '#3c9dc2',          
+              height: 80,
+              backgroundColor: '#07a',          
               },
-              headerTitleStyle: {
+            headerTitleStyle: {
               fontSize: 20,
               fontWeight: 'bold',
-              },
+            },
           }}/>
         <Stack.Screen name="Tab" component={TabButton}
           options = {{ 
             title: false,
             headerTransparent: true,
-            gesturesEnabled: false,
-            headerLeft:null
           }}/>                  
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
+
+
+
+
