@@ -27,7 +27,7 @@
       "supportsTablet": true
     },
     "android": { 
-      "package": "com.equalityecare.appequalityecare", 
+      "package": "com.yourcompany.yourappname",
       "config": { 
          "googleMaps": {"apiKey": "AIzaSyB1qbTyz_As_4da5-r7pXXWlIbGG9qg5V0"}    
       } 
