@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, Button,TouchableOpacity, TextInput, SafeAreaView } from 'react-native';
 
+// import { Container } from './styles';
 
-
-export default function CountScreen({ navigation }) {
+export default function AlarmScreen({ navigation }) {
   return (
 
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
