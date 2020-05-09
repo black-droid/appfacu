@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Equality & Care",   
+    "name": "Equality & Care",
     "slug": "appmeto",
     "privacy": "public",
     "sdkVersion": "37.0.0",
@@ -34,3 +34,4 @@
    }
   }
 }
+
