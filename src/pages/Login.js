@@ -17,10 +17,11 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 export default function LoginScreen ({ navigation }) {
 //usuario ficticio
   const user = {
-    'email': 'nathan@email.com',
-    'nome': 'nathan',
-    'senha': '123'
+    'email' : ['nathan@email.com', 'douglas@email.com', 'bianca@email.com', 'marcel@email.com','larissa@email.com' ],
+    'nome' : ['Nathan', 'Douglas','Bianca', 'Marcel', 'Larissa'],
+    'senha' : ['123', '123', '123', '123','123']
   }
+
 //states de controle e comandos do botao olho para inputs
   const [Eye, setEye]        = useState(true)
   const [Olho, setOlho]      = useState('eye')
@@ -43,26 +44,39 @@ export default function LoginScreen ({ navigation }) {
 //se senha,email, ou nome incorretos ele permanece na mesma page e exibe um alerta
 //caso dados corretos ele navega pra pagina de controle q vai indicar a pagina inicial do interior do app
   function navigateToTab() {
-    if(Usuario == user['email'] | Usuario == user['nome']){
-      if(Senha == user['senha']){
-        navigation.navigate('Tab');
-      }
-      else{
-        Alert.alert('Senha incorreta','Tente novamente!');
+    for ( i=0; i <= user['nome'].length; i++) {
+      if(Usuario == user['email'][i] | Usuario == user['nome'][i]) {        
+        if(Senha == user['senha'][i]) {
+          navigation.navigate('Tab', { screen: 'Home', params: { 'name': user['nome'][i]}})
+          break;
+        }
+        else {
+          Alert.alert('Senha incorreta','Tente novamente!')
+          break;
+        }
       }
     }
-    else{
-      Alert.alert('E-mail ou usuário incorreto');
-    }
-  }
+    if (i >= user['nome'].length) {
+      Alert.alert('Usuário ou senha incorreta!')
+    }     
+  } 
   return (
     <SafeAreaView  style = {styles.container}>
         <View style = {styles.container}>
           <KeyboardAvoidingView behavior='padding'
             style = {styles.container}>
 
+          <View style={styles.textLogoPosition}>
             <Image style = {styles.logo}
-              source = {require('../../assets/logo.png')}/>            
+              source = {require('../../assets/logo.png')}/>
+            <Text style={styles.textLogo1}>
+              Bem-vindo a
+            </Text>            
+            <Text style={styles.textLogo2}>
+              Equality & Care
+            </Text>
+          </View>
+
             <TextInput style = {styles.input}
               placeholder  = 'e-mail ou usuário'
               autoCorrect  = {false}
@@ -85,14 +99,14 @@ export default function LoginScreen ({ navigation }) {
               <TouchableOpacity style = {styles.button}
                 title="Login"
                 onPress={navigateToTab}>
-                <Text style = {styles.Text}>
+                <Text style = {styles.text}>
                   LOGIN
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity style = {styles.button}
                 title="Registrar"
                 onPress={() => navigation.navigate('Register')}>
-                <Text style = {styles.Text}>
+                <Text style = {styles.text}>
                   CADASTRE-SE
                 </Text>
               </TouchableOpacity>
@@ -116,17 +130,22 @@ const styles = StyleSheet.create({
   },
   logo:{
     marginTop: "20%",
-    marginBottom: "10%",
+    marginBottom: 10,
     width: 120,
     height:120,
+  },
+  textLogoPosition: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 10,
   },
   PositionEye: {
     flexDirection: 'row',
     alignItems: "baseline"
   },
   div: {
-    flex: 2,
-    marginTop: 40,
+    flex: 1,
+    marginTop: 10,
     width:'100%',
     alignItems: 'center',
   },
@@ -162,10 +181,19 @@ const styles = StyleSheet.create({
     marginLeft: "78%",
     marginTop: 18,     
   },
-  Text:{
+  textLogo1:{
+    fontSize: 14,
+    color: '#000'
+  },
+  textLogo2:{
+    fontSize: 20,
+    fontWeight: "bold",
+    color: '#000'
+  },
+  text:{
     fontSize: 16,
     fontWeight: "bold",
     color: '#fff'
-
   },
+
 });
