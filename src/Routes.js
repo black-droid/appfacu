@@ -5,19 +5,19 @@ import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-
 import LoginScreen from './pages/Login';
 import RegisterScreen from './pages/Register';
-import CountScreen from './pages/Count';
 import HomeScreen from './pages/Home';
-import QRCodeScreen from './pages/QRCode';
 import ScheduleScreen from './pages/Schedule';
+import HistoricScreen from './pages/Historic';
+import QRCodeScreen from './pages/QRCode';
+import TransportScreen from './pages/Transport';
+import CountScreen from './pages/Count';
+import AlarmScreen from './pages/Alarm';
+import MapsScreen from './pages/Maps';
 
-StatusBar.setBackgroundColor("#05a");
+StatusBar.setBackgroundColor("#06a");
 StatusBar.setBarStyle("light-content");
-
-
-
 
 const Tab = createBottomTabNavigator();
 //criaçao do tab button com controle de telas e rotas
@@ -26,8 +26,8 @@ export function TabButton() {
       <Tab.Navigator 
         initialRouteName="Home"
         tabBarOptions={{          
-          activeTintColor: "#FFF",
-          inactiveTintColor: "#059",
+          activeTintColor: "#a20",
+          inactiveTintColor: "#fff",
           showIcon: true,
           showLabel: true,
           labelPosition: "below-icon",
@@ -35,7 +35,7 @@ export function TabButton() {
           fontSize: 12,
         },
         style:{
-          backgroundColor: "#099"
+          backgroundColor: "#07a"
         },
         }}>
 
@@ -43,25 +43,25 @@ export function TabButton() {
           options={{
             title: "INICIO",
             tabBarIcon: ({color, size}) => 
-            (<Icon name="home" size={30} color={color} />),
+            (<Icon name="home" size={25} color={color} />),
           }}/>
         <Tab.Screen name="Count" component={CountScreen}
           options={{
             title: "PERFIL",
             tabBarIcon: ({color, size}) => 
-            (<Icon name="account" size={30} color={color} />)        
+            (<Icon name="account" size={25} color={color} />)        
           }}/>
-        <Tab.Screen name="QRCode" component={QRCodeScreen}
+       <Tab.Screen name="Alarm" component={AlarmScreen}
           options={{
-            title: "QRCODE",
+            title: "ALARME",
             tabBarIcon: ({color, size}) => 
-            (<Icon name="qrcode" size={30} color={color} />)        
+            (<Icon name="alarm" size={25} color={color} />)        
           }}/>
-        <Tab.Screen name="Schedule" component={ScheduleScreen}
+        <Tab.Screen name="Maps" component={MapsScreen}
           options={{
-            title: "AGENDA",
+            title: "AVISOS",
             tabBarIcon: ({color, size}) => 
-            (<Icon name="calendar-clock" size={30} color={color} />)        
+            (<Icon name="bell" size={25} color={color} />)        
           }}/>
       </Tab.Navigator>
   );
@@ -78,35 +78,86 @@ export default function Routes() {
         initialRouteName="Login"
         screenOptions={{
           headerTitleAlign: "center",
-          headerTintColor: '#FFF',
-          headerPressColorAndroid: '#FF0',
-          gestureEnabled: true,
+          headerTintColor: '#fff',
+          headerPressColorAndroid: '#fa0',
+          gestureEnabled: false,
           gestureDirection: "horizontal",
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
 
         }}>
+        <Stack.Screen name="Tab" component={TabButton}
+          options = {{
+            headerShown: false,
+          }}/>     
         <Stack.Screen name="Login" component={LoginScreen} 
-          options = {{ 
-            title: false,
-            headerTransparent: true,
+          options = {{
+            headerShown: false,
           }}/>
         <Stack.Screen name="Register" component={RegisterScreen}
           options = {{ 
-            title:"REGISTRO",
+            title:"CADASTRO",
             headerStyle: {
-              backgroundColor: '#088',          
+              height: 80,
+              backgroundColor: '#07a',          
               },
-              headerTitleStyle: {
+            headerTitleStyle: {
               fontSize: 20,
               fontWeight: 'bold',
-              },
+            },
           }}/>
-        <Stack.Screen name="Tab" component={TabButton}
+        <Stack.Screen name="Schedule" component={ScheduleScreen}
           options = {{ 
-            title: false,
-            headerTransparent: true,
-          }}/>                  
+            title:"AGENDA",
+            headerStyle: {
+              height: 80,
+              backgroundColor: '#07a',          
+              },
+            headerTitleStyle: {
+              fontSize: 20,
+              fontWeight: 'bold',
+            },
+          }}/>
+        <Stack.Screen name="Historic" component={HistoricScreen}
+          options = {{ 
+            title:"HISTÓRICO DE CONSULTAS",
+            headerStyle: {
+              height: 80,
+              backgroundColor: '#07a',          
+              },
+            headerTitleStyle: {
+              fontSize: 20,
+              fontWeight: 'bold',
+            },
+          }}/>
+        <Stack.Screen name="QRCode" component={QRCodeScreen}
+          options = {{ 
+            title:"QRCODE",
+            headerStyle: {
+              height: 80,
+              backgroundColor: '#07a',          
+              },
+            headerTitleStyle: {
+              fontSize: 20,
+              fontWeight: 'bold',
+            },
+          }}/>
+        <Stack.Screen name="Transport" component={TransportScreen}
+          options = {{ 
+            title:"TRANSPORTE",
+            headerStyle: {
+              height: 80,
+              backgroundColor: '#07a',          
+              },
+            headerTitleStyle: {
+              fontSize: 20,
+              fontWeight: 'bold',
+            },
+          }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
+
+
+
