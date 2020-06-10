@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Equality & Care",
-    "slug": "appmeto",
+    "name": "Equality & Care",   
+    "slug": "Equality & Care",
     "privacy": "public",
     "sdkVersion": "37.0.0",
     "platforms": [
@@ -24,14 +24,14 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.equalityandcare.equalityandcare",
     },
     "android": { 
-      "package": "com.yourcompany.yourappname",
+      "package": "com.equalityandcare.equalityandcare",
       "config": { 
          "googleMaps": {"apiKey": "AIzaSyB1qbTyz_As_4da5-r7pXXWlIbGG9qg5V0"}    
       } 
    }
   }
 }
-
