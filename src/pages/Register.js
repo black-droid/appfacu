@@ -10,7 +10,7 @@ import {Button,
 				ScrollView,
 } from 'react-native';
 
-import { data } from './dados';
+import { data } from './Dados';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
