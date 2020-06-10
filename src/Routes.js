@@ -26,7 +26,7 @@ export function TabButton() {
       <Tab.Navigator 
         initialRouteName="Home"
         tabBarOptions={{          
-          activeTintColor: "#a20",
+          activeTintColor: "#006",
           inactiveTintColor: "#fff",
           showIcon: true,
           showLabel: true,
@@ -35,7 +35,7 @@ export function TabButton() {
           fontSize: 12,
         },
         style:{
-          backgroundColor: "#07a"
+          backgroundColor: "#06a"
         },
         }}>
 
@@ -44,12 +44,6 @@ export function TabButton() {
             title: "INICIO",
             tabBarIcon: ({color, size}) => 
             (<Icon name="home" size={25} color={color} />),
-          }}/>
-        <Tab.Screen name="Count" component={CountScreen}
-          options={{
-            title: "PERFIL",
-            tabBarIcon: ({color, size}) => 
-            (<Icon name="account" size={25} color={color} />)        
           }}/>
        <Tab.Screen name="Alarm" component={AlarmScreen}
           options={{
@@ -62,6 +56,12 @@ export function TabButton() {
             title: "AVISOS",
             tabBarIcon: ({color, size}) => 
             (<Icon name="bell" size={25} color={color} />)        
+          }}/>
+        <Tab.Screen name="Count" component={CountScreen}
+          options={{
+            title: "PERFIL",
+            tabBarIcon: ({color, size}) => 
+            (<Icon name="account" size={25} color={color} />)        
           }}/>
       </Tab.Navigator>
   );
