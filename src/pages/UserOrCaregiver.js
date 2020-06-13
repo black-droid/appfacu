@@ -1,5 +1,5 @@
 import React, { useState }  from 'react';
-import { View, Picker, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Picker, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 
 export default function UserOrCaregiverScreen ({ navigation }) {
   const[cuidador, setCuidador] = useState('')
@@ -16,6 +16,7 @@ export default function UserOrCaregiverScreen ({ navigation }) {
 
   return(
 
+ 
     <SafeAreaView style={styles.container}>
 
 
@@ -50,8 +51,8 @@ export default function UserOrCaregiverScreen ({ navigation }) {
                 </Text>
               </TouchableOpacity>          
                  
- 
     </SafeAreaView>
+   
   )
 };
 
@@ -59,12 +60,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: '#6ccff6',    
+    justifyContent: "center",
+    backgroundColor: '#6ccff6',
   },
   termo: {
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 80,
     margin: 20,
     padding: 10,
     backgroundColor: "#fff",
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     paddingHorizontal: 80,
     paddingVertical: 15,
-    marginTop: 80,
+    marginTop: 40,
   },
   textButton:{
     fontSize: 16,
