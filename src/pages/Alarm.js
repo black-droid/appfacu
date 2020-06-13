@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Button, Alert, Picker, Text, TextInput } from 'react-native';
+import { View, Button, Alert, Text, TextInput, SafeAreaView } from 'react-native';
 
 
 export default function AlarmScreen () {
@@ -12,7 +12,7 @@ export default function AlarmScreen () {
  
   return(
 
-    <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+    <SafeAreaView style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
 
         <Text> Em desenvolvimento </Text>
     <Button
@@ -26,7 +26,7 @@ export default function AlarmScreen () {
 
        
  
-    </View>
+    </SafeAreaView>
   )
 };
 

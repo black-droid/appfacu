@@ -5,6 +5,7 @@ import {View,
         StyleSheet,
         Text,
         TouchableOpacity,
+        SafeAreaView,
       } from 'react-native';
 
 import { data } from './Dados';
@@ -74,7 +75,7 @@ export default function CountScreen({ navigation}) {
 
   return (
     <ScrollView >
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
 
       <View style={{flexDirection: "row", alignItems:"center",}}>
       {nomeCuidador==='' ? null :
@@ -243,11 +244,11 @@ export default function CountScreen({ navigation}) {
           <TouchableOpacity 
             style = {styles.button}
             onPress={Editar}>
-            <Text style={styles.textButton}>Editar</Text>								
+            <Text style={styles.textButton}>EDITAR</Text>								
           </TouchableOpacity>
         </View>
 
-      </View>
+      </SafeAreaView>
     </ScrollView>
     
     
@@ -331,8 +332,8 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 40,
-    paddingVertical: 10,
+    paddingHorizontal: 60,
+    paddingVertical: 15,
     borderRadius: 40,
     backgroundColor: '#06a', 
   },

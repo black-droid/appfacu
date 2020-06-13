@@ -7,7 +7,7 @@ import {View,
         TouchableOpacity,
         TextInput,
         Keyboard,
-        KeyboardAvoidingView,
+        SafeAreaView,
       } from 'react-native';
 
 export { i, LoginScreen };
@@ -64,14 +64,13 @@ function LoginScreen ({ navigation, route }) {
 
   return (
 
-        <View style = {styles.container}>
-
+        <SafeAreaView style = {styles.container}>
 
           <View style={styles.textLogoPosition}>
             <Image style = {styles.logo}
               source = {require('../../assets/logo.png')}/>
             <Text style={styles.textLogo1}>
-              Bem-vindo a
+              Bem-vindo
             </Text>            
             <Text style={styles.textLogo2}>
               Equality & Care
@@ -112,7 +111,7 @@ function LoginScreen ({ navigation, route }) {
               </TouchableOpacity>
             </View>
 
-        </View>
+        </SafeAreaView>
 
   );
 }

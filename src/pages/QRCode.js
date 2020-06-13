@@ -6,6 +6,7 @@ import {View,
         TextInput,
         TouchableOpacity,
         StyleSheet,
+        SafeAreaView,
 } from 'react-native';
 
 import QrCode from 'react-native-qrcode-generator';
@@ -13,7 +14,7 @@ import QrCode from 'react-native-qrcode-generator';
 
 export default function QRCodeScreen({ navigation }) {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
 
       <View style={styles.component}>
         <Text style={styles.text}>
@@ -36,7 +37,7 @@ export default function QRCodeScreen({ navigation }) {
         fgColor='white'
         />
       </View>
-    </View>
+    </SafeAreaView>
 
 
   );

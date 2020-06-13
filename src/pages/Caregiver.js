@@ -7,6 +7,7 @@ import {Image,
 				View, 
 				Picker,        
 				ScrollView,
+				SafeAreaView,
 } from 'react-native';
 
 import { data } from './Dados';
@@ -203,7 +204,7 @@ const FormSchema = Yup.object().shape({
 
 	return (
 		<ScrollView>
-			<View style={styles.container}>			
+			<SafeAreaView style={styles.container}>			
 
 				<View style={styles.photoPosition}>
 					<View>
@@ -646,7 +647,7 @@ const FormSchema = Yup.object().shape({
 					</View>)}
 				</Formik>		
 				
-			</View>
+			</SafeAreaView>
 		</ScrollView >
 	);
 }
@@ -674,13 +675,13 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		backgroundColor: '#06a',
-		marginTop: 40,
-		marginBottom: 60,		
-		marginHorizontal: 100,
-		padding: 10,
+		marginTop: 20,
+		marginBottom: 60,
+		marginHorizontal: 60,
+		paddingVertical: 15,
 		alignItems: 'center',
 		justifyContent: 'center',
-		borderRadius: 20,
+		borderRadius: 40,
 	},
 	smallfont: {
 		fontWeight: 'bold',

@@ -5,9 +5,9 @@ import { View, Text, Button,TouchableOpacity, TextInput, SafeAreaView } from 're
 export default function HistoricScreen({ navigation }) {
   return (
 
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>Count Screen</Text>
-      </View>
+      </SafeAreaView>
 
   );
 }

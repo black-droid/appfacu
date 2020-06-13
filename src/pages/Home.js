@@ -3,6 +3,8 @@ import {Text,
         StyleSheet,
         View,
         Image,
+        SafeAreaView,
+        ScrollView,
       } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -57,7 +59,8 @@ export default function HomeScreen({ navigation}) {
  
 
   return (
-    <View style={styles.container}>      
+    <SafeAreaView style={styles.container}>
+      <ScrollView> 
       <View style={styles.title}>
       <View style={styles.title2}>
       <View style={styles.namePosition}>
@@ -119,7 +122,9 @@ export default function HomeScreen({ navigation}) {
           </Text>
         </View>
       </View>
-    </View>
+      </ScrollView>
+    </SafeAreaView>
+    
   );
 }
 
@@ -186,7 +191,7 @@ const styles = StyleSheet.create({
   icon1: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-evenly",    
+    justifyContent: "space-evenly",
   },
   icon2: {
     flexDirection: "row",

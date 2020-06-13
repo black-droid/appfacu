@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, ScrollView , Text, View, Dimensions, ListView } from 'react-native';
+import { StyleSheet, ScrollView , Text, View, SafeAreaView } from 'react-native';
 
 import DatePicker from 'react-native-datepicker';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -10,7 +10,7 @@ export default function ScheduleScreen({ navigation }) {
   const[date,setDate]=useState('')
   const[hour,setHour]=useState()
   return (
-    <View style={styles.container}>     
+    <SafeAreaView style={styles.container}>     
       <DatePicker style={styles.component}
         format="DD/MM/YYYY"
         date={date}
@@ -36,7 +36,7 @@ export default function ScheduleScreen({ navigation }) {
       <Text style={styles.component}>
         {hour && <Text>Horário selecionada: {hour} </Text>}
       </Text>
-    </View>
+    </SafeAreaView>
 
     );
   }
