@@ -18,7 +18,7 @@ import EditScreen from './pages/Edit';
 import EditCaregiverScreen from './pages/EditCaregiver';
 import CountScreen from './pages/Count';
 import AlarmScreen from './pages/Alarm';
-import MapsScreen from './pages/Maps';
+import MessageScreen from './pages/Message';
 
 StatusBar.setBackgroundColor("#06a");
 StatusBar.setBarStyle("light-content");
@@ -57,7 +57,7 @@ export function TabButton() {
             tabBarIcon: ({color, size}) => 
             (<Icon name="alarm" size={40} color={color} />)        
           }}/>
-        <Tab.Screen name="Maps" component={MapsScreen}
+        <Tab.Screen name="Message" component={MessageScreen}
           options={{
             title: "AVISOS",
             tabBarIcon: ({color, size}) => 
