@@ -31,7 +31,7 @@ export default function QRCodeScreen({ navigation }) {
       <View style={styles.qrCode}>        
       <QrCode
         value='WRS26G'
-        size={150}
+        size={250}
         bgColor='black'
         fgColor='white'
         />
@@ -45,6 +45,7 @@ export default function QRCodeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#6ccff6'
   },
   component:{
     alignItems: 'center',
@@ -73,7 +74,9 @@ const styles = StyleSheet.create({
   qrCode:{
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 10,
-    marginTop: 10,
+    padding: 20,
+    marginTop: 40,
+    marginHorizontal: 60,
+    backgroundColor: "#fff"
   },
 })

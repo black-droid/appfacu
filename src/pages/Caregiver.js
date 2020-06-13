@@ -18,8 +18,9 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 
 
-export default function  RegisterScreen ({ navigation, route }) {
+export default function  CaregiverScreen ({ navigation }) {
 	const [image, setImage] = useState(null);
+	const [ImageCuidador, setImageCuidador] = useState(null);
 	useEffect(() => {
 		(async () => {
 			if (Constants.platform.android) {
@@ -31,16 +32,35 @@ export default function  RegisterScreen ({ navigation, route }) {
 		})();
 	}, []);		
 	const pickImage = async () => {
-		let result = await ImagePicker.launchImageLibraryAsync({
+		let result1 = await ImagePicker.launchImageLibraryAsync({
 			mediaTypes: ImagePicker.MediaTypeOptions.All,
 			allowsEditing: true,
 			quality: 1,
 		});		
-		console.log(result);		
-		if (!result.cancelled) {
-			setImage(result.uri);
+		console.log(result1);		
+		if (!result1.cancelled) {
+			setImage(result1.uri);
 		}
 	};
+
+	const pickImageCuidador = async () => {
+		let result2 = await ImagePicker.launchImageLibraryAsync({
+			mediaTypes: ImagePicker.MediaTypeOptions.All,
+			allowsEditing: true,
+			quality: 1,
+		});		
+		console.log(result2);		
+		if (!result2.cancelled) {
+			setImageCuidador(result2.uri);
+		}
+	};
+
+
+	const [nomeCuidador, setNomeCuidador] = useState('');
+	const [idadeCuidador, setIdadeCuidador] = useState('');
+	const [cpfCuidador, setCPFCuidador] = useState('');
+	const [sexoCuidador, setSexoCuidador] = useState('');
+
 
 
 
@@ -87,11 +107,11 @@ function sendData(){
 }
 
 const dados = {
-	'photoCaregiver': null,
-	'nameCaregiver': '',
-	'ageCaregiver': '',
-	'cpfCaregiver': '',
-	'sexoCaregiver': '', 
+	'photoCaregiver': ImageCuidador,
+	'nameCaregiver': nomeCuidador,
+	'ageCaregiver': idadeCuidador,
+	'cpfCaregiver': cpfCuidador,
+	'sexoCaregiver': sexoCuidador,
 	'photo': image,
 	'name' : nome,
 	'age': idade,
@@ -116,10 +136,10 @@ const dados = {
 
 
 const FormSchema = Yup.object().shape({
-	name: Yup.string()
+	nameCaregiver: Yup.string()
 		.max(50, '* Limite de caracteres atingido')
 		.required('* Campo obrigatório'),
-	age: Yup.string()
+	ageCaregiver: Yup.string()
 		.length(10, '* Digite uma data válida')
 		.required('* Campo obrigatório'),
 	phone: Yup.string()
@@ -129,18 +149,29 @@ const FormSchema = Yup.object().shape({
 	cellphone: Yup.string()
 		.min(15, '* Digite um número válido')
 		.required('* Campo obrigatório'),
-	cpf: Yup.string()
+	cpfCaregiver: Yup.string()
 		.length(14, '* Digite um CPF válido')
 		.required('* Campo obrigatório'),		
 	email: Yup.string()
 		.email('* Digite um e-mail válido')
 		.lowercase('* Somente letras minúsculas')
 		.required('* Campo obrigatório'),
+	sexoCaregiver: Yup.mixed()
+		.notOneOf(['Selecione', undefined],'* Campo obrigatório'),
+	name: Yup.string()
+		.max(50, '* Limite de caracteres atingido')
+		.required('* Campo obrigatório'),
+	age: Yup.string()
+		.length(10, '* Digite uma data válida')
+		.required('* Campo obrigatório'),
+	cpf: Yup.string()
+		.length(14, '* Digite um CPF válido')
+		.required('* Campo obrigatório'),
 	sexo: Yup.mixed()
 		.notOneOf(['Selecione', undefined],'* Campo obrigatório'),
 	disabledPerson: Yup.mixed()
 		.notOneOf(['Selecione', undefined],'* Campo obrigatório'),
-	deficiency: Yup.mixed(), //Não sei uma forma de deixar obrigatório sem ficar zuado nos testes 	
+	deficiency: Yup.mixed(), //Não sei como deixar obrigatório	
 	plan: Yup.mixed()
 		.notOneOf(['Selecione', undefined],'* Campo obrigatório'),
 	cep: Yup.string()
@@ -175,14 +206,33 @@ const FormSchema = Yup.object().shape({
 			<View style={styles.container}>			
 
 				<View style={styles.photoPosition}>
-					{image==null ? 
-					<Icon style={styles.fotoNull} name='account-circle' size={140} color={"#06a"}/>:
-					image && <Image source={{ uri: image }} style={styles.fotoPerson} />}					
-					<Icon style={styles.photoEdit} name='camera' size={30} color={"#666"} onPress={pickImage} />
+					<View>
+						{ImageCuidador==null ? 
+						<Icon style={styles.fotoNull} name='account-circle' size={140} color={"#06a"}/>:
+						ImageCuidador && <Image source={{ uri: ImageCuidador }} style={styles.fotoPerson} />}					
+						<Icon style={styles.photoEdit} name='camera' size={30} color={"#666"} onPress={pickImageCuidador} />
+						<View style={styles.titlePosition}>
+							<Text style={styles.title}>CUIDADOR</Text>
+						</View>
+					</View>
+
+					<View>
+						{image==null ? 
+						<Icon style={styles.fotoNull} name='account-circle' size={140} color={"#06a"}/>:
+						image && <Image source={{ uri: image }} style={styles.fotoPerson} />}					
+						<Icon style={styles.photoEdit} name='camera' size={30} color={"#666"} onPress={pickImage} />
+						<View style={styles.titlePosition}>
+							<Text style={styles.title}>CUIDADO</Text>
+						</View>
+					</View>
 				</View>
 
 				<Formik
 					initialValues={{
+						'nameCaregiver': '',
+						'ageCaregiver': '',
+						'cpfCaregiver': '',
+						'sexoCaregiver': '', 
 						'name' : '',
 						'age': '',
 						'phone': '',
@@ -205,40 +255,44 @@ const FormSchema = Yup.object().shape({
 					}}
 					onSubmit={sendData}
 					validationSchema={FormSchema}
-				/* 	onReset={('')} */				
+				/* 	onReset={('')} */
+
+
+					
+				
 
 				>
 				{({ values, handleChange, handleSubmit, errors, touched, setFieldTouched, setFieldValue, handleReset}) => (
 					<View>
 						<View style={styles.titlePosition2}>
-							<Text style={styles.title2}>DADOS PESSOAIS</Text>
+							<Text style={styles.title2}>DADOS DO CUIDADOR</Text>
 						</View>
 						<View>
 							<Text style = {styles.smallfont}>Nome</Text>
-								{errors.name && touched.name && 
-								<Text style={styles.validation}>{errors.name}</Text>}
+								{errors.nameCaregiver && touched.nameCaregiver && 
+								<Text style={styles.validation}>{errors.nameCaregiver}</Text>}
 							<TextInput style = {styles.input}
 								placeholder = 'Nome Completo'					
-								ref={setNome(values.name)}
-								value={values.name}
-								onChangeText={handleChange('name')}
-								onBlur={() => setFieldTouched('name', true)}/>		
+								ref={setNomeCuidador(values.nameCaregiver)}
+								value={values.nameCaregiver}
+								onChangeText={handleChange('nameCaregiver')}
+								onBlur={() => setFieldTouched('nameCaregiver', true)}/>		
 						</View>						
 						
 						<View>
 							<Text style = {styles.smallfont}>Data de Nascimento</Text>
-								{errors.age && touched.age && 
-								<Text style={styles.validation}>{errors.age}</Text>}
+								{errors.ageCaregiver && touched.ageCaregiver && 
+								<Text style={styles.validation}>{errors.ageCaregiver}</Text>}
 							<TextInputMask
 								type={'datetime'}
 								options={{format: 'DD/MM/YYYY'}}
 								style = {styles.input}
 								placeholder = 'DD/MM/AAAA'												
 								keyboardType = 'numeric'
-								ref={setIdade(values.age)}
-								value={values.age}
-								onChangeText={handleChange('age')}
-								onBlur={() => setFieldTouched('age', true)}/>
+								ref={setIdadeCuidador(values.ageCaregiver)}
+								value={values.ageCaregiver}
+								onChangeText={handleChange('ageCaregiver')}
+								onBlur={() => setFieldTouched('ageCaregiver', true)}/>
 						</View>
 						
 						<View>
@@ -276,17 +330,17 @@ const FormSchema = Yup.object().shape({
 						
 						<View>
 							<Text style = {styles.smallfont}>CPF</Text>
-								{errors.cpf && touched.cpf && 
-								<Text style={styles.validation}>{errors.cpf}</Text>}
+								{errors.cpfCaregiver && touched.cpfCaregiver && 
+								<Text style={styles.validation}>{errors.cpfCaregiver}</Text>}
 							<TextInputMask
 								type={'cpf'}
 								style = {styles.input}
 								placeholder = 'CPF'				
 								keyboardType = 'numeric'
-								ref={setCPF(values.cpf)}
-								value={values.cpf}
-								onChangeText={handleChange('cpf')}
-								onBlur={() => setFieldTouched('cpf', true)}/>
+								ref={setCPFCuidador(values.cpfCaregiver)}
+								value={values.cpfCaregiver}
+								onChangeText={handleChange('cpfCaregiver')}
+								onBlur={() => setFieldTouched('cpfCaregiver', true)}/>
 						</View>
 								
 
@@ -304,6 +358,69 @@ const FormSchema = Yup.object().shape({
 								onBlur={() => setFieldTouched('email', true)}/>
 						</View>
 						
+						<View>
+						<Text style = {styles.smallfont}> Sexo: </Text>
+							{errors.sexoCaregiver && touched.sexoCaregiver && 
+							<Text style={styles.validation}>{errors.sexoCaregiver}</Text>}
+						<Picker style={styles.picker}
+							mode = "dropdown"
+							ref={setSexoCuidador(values.sexoCaregiver)}
+							selectedValue = {values.sexoCaregiver}
+							onValueChange = {(itemValue) => setFieldValue('sexoCaregiver',itemValue)}
+							onBlur={() => setFieldTouched('sexo', true)}>
+							<Picker.Item label="Selecione" value="Selecione" />
+							<Picker.Item label="Masculino" value="Masculino" />
+							<Picker.Item label="Feminino" value="Feminino" />
+						</Picker>
+						</View>
+
+						<View style={styles.titlePosition2}>
+							<Text style={styles.title2}>DADOS DA PESSOA CUIDADA</Text>
+						</View>
+						<View>
+							<Text style = {styles.smallfont}>Nome</Text>
+								{errors.name && touched.name && 
+								<Text style={styles.validation}>{errors.name}</Text>}
+							<TextInput style = {styles.input}
+								placeholder = 'Nome Completo'					
+								ref={setNome(values.name)}
+								value={values.name}
+								onChangeText={handleChange('name')}
+								onBlur={() => setFieldTouched('name', true)}/>		
+						</View>
+
+						<View>
+							<Text style = {styles.smallfont}>Data de Nascimento</Text>
+								{errors.age && touched.age && 
+								<Text style={styles.validation}>{errors.age}</Text>}
+							<TextInputMask
+								type={'datetime'}
+								options={{format: 'DD/MM/YYYY'}}
+								style = {styles.input}
+								placeholder = 'DD/MM/AAAA'												
+								keyboardType = 'numeric'
+								ref={setIdade(values.age)}
+								value={values.age}
+								onChangeText={handleChange('age')}
+								onBlur={() => setFieldTouched('age', true)}/>
+						</View>
+
+
+						<View>
+							<Text style = {styles.smallfont}>CPF</Text>
+								{errors.cpf && touched.cpf && 
+								<Text style={styles.validation}>{errors.cpf}</Text>}
+							<TextInputMask
+								type={'cpf'}
+								style = {styles.input}
+								placeholder = 'CPF'				
+								keyboardType = 'numeric'
+								ref={setCPF(values.cpf)}
+								value={values.cpf}
+								onChangeText={handleChange('cpf')}
+								onBlur={() => setFieldTouched('cpf', true)}/>
+						</View>
+
 						<View>
 						<Text style = {styles.smallfont}> Sexo: </Text>
 							{errors.sexo && touched.sexo && 
@@ -398,7 +515,7 @@ const FormSchema = Yup.object().shape({
 							onBlur={() => setFieldTouched('cep', true)}
 							onSubmitEditing ={() => buscar()}/>
 						</View>
-						
+
 						<View>
 							<Text style = {styles.smallfont}>Logradouro</Text>
 								{errors.street && touched.street && 
@@ -422,7 +539,7 @@ const FormSchema = Yup.object().shape({
 								onChangeText={handleChange('number')}
 								onBlur={() => setFieldTouched('number', true)}/>
 						</View>
-						
+				
 						<View>
 							<Text style = {styles.smallfont}>Localidade</Text>
 								{errors.city && touched.city && 
@@ -458,7 +575,7 @@ const FormSchema = Yup.object().shape({
 
 						<View style={styles.titlePosition2}>
 							<Text style={styles.title2}>SENHA DE ACESSO</Text>
-						</View>						
+						</View>							
 						<View>
 							<Text style = {styles.smallfont}>Usuário</Text>
 								{errors.user && touched.user && 
@@ -506,7 +623,6 @@ const FormSchema = Yup.object().shape({
 						<Text style={styles.menssage1}>{validation}</Text> }
 						</View>
 						
-
 						{validation!=='Dados cadastrados com sucesso!' ? 
 						(<TouchableOpacity 
 							style = {styles.button}
@@ -586,32 +702,47 @@ const styles = StyleSheet.create({
 	},
 	fotoNull: {
 		padding: 1,
+		margin: 20,
     borderRadius: 100,
     backgroundColor: '#fff',
 	},
 	photoEdit: {
 		position: "absolute",
-		marginTop: 110,
-		marginLeft: 100,
+		marginTop: 120,
+		marginLeft: 110,
 		padding: 10,
 		borderRadius: 100,
 		backgroundColor: "#ddd",
 	},
 	photoPosition: {
+		flexDirection: "row",
 		alignSelf: "center",
-		margin: 20,
+		marginBottom: 40
 	},
 	fotoPerson: {
     height: 150,
-    width: 150,
+		width: 150,
+		margin: 18,
     borderRadius: 100,
     borderColor:"#fff",
     borderWidth: 5,
+	},
+	title: {
+		fontSize: 14,
+		fontWeight: "bold",
+		color: "#fff"
 	},
 	title2: {
 		fontSize: 16,
 		fontWeight: "bold",
 		color: "#fff"
+	},
+	titlePosition: {
+		alignItems: "center",
+		backgroundColor: "#06a",
+		padding: 5,
+		marginHorizontal: 40,
+		borderRadius: 20,
 	},
 	titlePosition2: {
 		marginVertical: 10,
@@ -635,3 +766,5 @@ const styles = StyleSheet.create({
 		marginTop: 20,	
 	},
 });
+
+

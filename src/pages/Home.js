@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Text,
         StyleSheet,
         View,
@@ -6,53 +6,94 @@ import {Text,
       } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-
 import { data } from './Dados';
+import { i }  from './Login'
 
 
 
 
-export default function HomeScreen({ navigation, route }) {
-  const { name } = route.params;
-  const { photo } = route.params;
+function idade (ano_aniversario, mes_aniversario, dia_aniversario) {
+  var d = new Date(),
+      ano_atual = d.getFullYear(),
+      mes_atual = d.getMonth() + 1,
+      dia_atual = d.getDate(),
+      ano_aniversario = +ano_aniversario,
+      mes_aniversario = +mes_aniversario,
+      dia_aniversario = +dia_aniversario,
+      quantos_anos = ano_atual - ano_aniversario;
+  if (mes_atual < mes_aniversario || mes_atual == mes_aniversario && dia_atual < dia_aniversario) {
+      quantos_anos--;
+  }
+  return quantos_anos < 0 ? 0 : quantos_anos;
+}
 
+
+
+
+export default function HomeScreen({ navigation}) {
+  const[foto, setFoto] = useState(data[i]['photo'])
+  const[nome, setNome] = useState(data[i]['name'])
+  const[niver, setNiver] = useState(idade(data[i]['age'].split('/').splice(2,2), 
+                                          data[i]['age'].split('/').splice(1,1), 
+                                          data[i]['age'].split('/').splice(0,1)))
+  const[sexo, setSexo] = useState(data[i]['sexo'])  
+  const[cpf, setCPF] = useState(data[i]['cpf'])
+
+  
+
+  useEffect(() =>{navigation.addListener('focus', () => {
+    setFoto(data[i]['photo']);
+    setNome(data[i]['name']);
+    setNiver(idade( data[i]['age'].split('/').splice(2,2), 
+                    data[i]['age'].split('/').splice(1,1), 
+                    data[i]['age'].split('/').splice(0,1)));
+    setSexo(data[i]['sexo']);
+    setCPF(data[i]['cpf']);
+    
+  })});
+    
+    
+
+ 
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container}>      
+      <View style={styles.title}>
+      <View style={styles.title2}>
       <View style={styles.namePosition}>
-        {(photo==null) ? 
+        {(foto===null) ? 
           (<Icon style={styles.fotoNull} name='account-circle' size={120} color={"#06a"}/>):
-          (photo && <Image source={{ uri: photo }} style={styles.fotoPerson}/>)}
+          (foto && <Image source={{ uri: foto }} style={styles.fotoPerson}/>)}
         <View>
-          <Text style={styles.nameText}>
-            Olá, {(name)}, 
-          </Text>          
-          <Text style={styles.nameText2}>
-            Como podemos ajudar?
-          </Text>
+          <Text style={styles.nameText}>{(nome.length>= 23) ? (nome.slice(0,22)+'...'):(nome)}</Text>          
+          <Text style={styles.nameText2}>{niver} anos</Text>
+          <Text style={styles.nameText2}>{sexo}</Text>
+          <Text style={styles.nameText2}>CPF: {cpf}</Text>
         </View>
+      </View>
+      </View>
       </View>
       <View style={styles.icon1}>
         <View style={styles.alignIconText}>
           <Icon style={styles.icon}
             onPress={() => navigation.navigate('Schedule')}
-            name='calendar-clock' size={50} color={"#07a"}/>
+            name='calendar-clock' size={100} color={"#07a"}/>
           <Text style={styles.textIcon}>
             Agendar
             </Text>
           <Text style={styles.textIcon}>
-            consultas/exames
+            Consultas
             </Text>
         </View>
         <View style={styles.alignIconText}>
           <Icon style={styles.icon}
             onPress={() => navigation.navigate('Historic')}
-            name='clipboard-text-outline' size={50} color={"#07a"}/>
+            name='clipboard-text-outline' size={100} color={"#07a"}/>
           <Text style={styles.textIcon}>
             Histórico de
           </Text>
           <Text style={styles.textIcon}>
-            consultas/exames
+            Consultas
           </Text>
         </View>
       </View>
@@ -60,9 +101,9 @@ export default function HomeScreen({ navigation, route }) {
         <View style={styles.alignIconText}>
           <Icon style={styles.icon}
             onPress={() => navigation.navigate('QRCode')}
-            name='qrcode' size={50} color={"#07a"}/>
+            name='qrcode' size={100} color={"#07a"}/>
           <Text style={styles.textIcon}>
-            Confirmar chegada
+            Chegada
           </Text>
           <Text style={styles.textIcon}>
           </Text>
@@ -70,7 +111,7 @@ export default function HomeScreen({ navigation, route }) {
         <View style={styles.alignIconText}>
           <Icon style={styles.icon}
             onPress={() => navigation.navigate('Transport')}
-            name='ambulance' size={50} color={"#07a"}/>
+            name='ambulance' size={100} color={"#07a"}/>
           <Text style={styles.textIcon}>
             Transporte
           </Text>
@@ -86,68 +127,77 @@ export default function HomeScreen({ navigation, route }) {
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#6ccff6',
   },
   fotoNull: {
-    marginTop: 40,
-    marginLeft: 20,
+    marginTop: 20,
+    marginLeft: 10,
     padding: 0.5,
     borderRadius: 100,
-    backgroundColor: '#ddd',
+    backgroundColor: '#fff',
   },
   fotoPerson: {
-    marginTop: 40,
-    marginLeft: 20,
+    marginTop: 20,
+    marginLeft: 10,
     height: 120,
     width: 120,
     borderRadius: 100,
-    borderColor:"#ddd",
+    borderColor:"#fff",
     borderWidth: 5,
+  },
+  title: {
+    margin: 5,
+    marginTop: 40,
+    height: 160,
+    backgroundColor: '#07a',
+    
+    borderRadius: 20, 
   },
   namePosition: {
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "flex-start",
-    height: 120,
-    backgroundColor: '#07a'
   },
   nameText: {
+    marginTop: 25,
+    marginLeft: 10,
     fontSize: 20,
     fontWeight: "bold",
     color: "#fff",
-    marginTop: 50,
-    marginLeft: 20,
+
   },
   nameText2: {
     fontSize: 18,
     color: "#fff",
-    marginLeft: 20,
+    marginLeft: 10,
   },
   alignIconText: {
     alignItems: "center",
     justifyContent: "center",
   },
   icon: {
-    padding: 20,
-    margin: 10,
-    backgroundColor: "#ddd",
-    borderRadius: 100,
+    padding: 10,
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    borderWidth: 3,
+    borderColor: "#07a",
+    marginTop: 20,
   },
   icon1: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-evenly",
-    marginTop: 80,
+    justifyContent: "space-evenly",    
   },
   icon2: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",
-    marginTop: 40,
+
   },
   textIcon: {
     fontWeight: "bold",
     fontSize: 16,
+    color: "#07a"
   },
 
 })

@@ -10,19 +10,15 @@ import {View,
         KeyboardAvoidingView,
       } from 'react-native';
 
-
+export { i, LoginScreen };
 import { data } from './Dados';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default function LoginScreen ({ navigation, route }) {
-//usuario ficticio
-  const user = [{
-    'email' : ['nathan@email.com', 'douglas@email.com', 'bianca@email.com', 'marcel@email.com','larissa@email.com' ],
-    'nome' : ['Nathan', 'Douglas','Bianca', 'Marcel', 'Larissa'],
-    'senha' : ['123', '123', '123', '123','123']
-  }]
 
+//Passa a posição do usuário para reuperar os dados 
+var i = 0;
 
+function LoginScreen ({ navigation, route }) {
 
 //states de controle e comandos do botao olho para inputs
   const [Eye, setEye]        = useState(true)
@@ -46,7 +42,7 @@ export default function LoginScreen ({ navigation, route }) {
 //se senha,email, ou nome incorretos ele permanece na mesma page e exibe um alerta
 //caso dados corretos ele navega pra pagina de controle q vai indicar a pagina inicial do interior do app
   function NavigateToTab() {
-    for (var i=0; i <= data.length; i++) {
+    for ( i=0; i <= data.length; i++) {
       if(Usuario !== data[i]['email'] && Usuario !== data[i]['user']) {
         if (i >= data.length-1){
           Keyboard.dismiss();
@@ -55,7 +51,7 @@ export default function LoginScreen ({ navigation, route }) {
         }
       }else{ 
         if(Senha === data[i]['password']){
-          navigation.navigate('Tab', { screen: 'Home', params: {'name': data[i]['user'], 'photo': data[i]['photo'] }});
+          navigation.navigate('Tab', { screen: 'Home'});
           break;
         }else{
           Keyboard.dismiss();
@@ -75,7 +71,7 @@ export default function LoginScreen ({ navigation, route }) {
             <Image style = {styles.logo}
               source = {require('../../assets/logo.png')}/>
             <Text style={styles.textLogo1}>
-              Bem-vindo  
+              Bem-vindo a
             </Text>            
             <Text style={styles.textLogo2}>
               Equality & Care
@@ -92,9 +88,9 @@ export default function LoginScreen ({ navigation, route }) {
               <TextInput style = {styles.input2}
                 placeholder  = 'senha'
                 autoCorrect  = {false}
-                onChangeText={(text) => setSenha(text)}
                 secureTextEntry={Eye}
-                password={true}/>
+                password={true}
+                onChangeText={(text) => setSenha(text)}/>
               <Icon style={styles.icon}
                 onPress = {visualizacao}
                 name={Olho} size={30} color='grey'/>
@@ -109,7 +105,7 @@ export default function LoginScreen ({ navigation, route }) {
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity style = {styles.button}
-                onPress={() => navigation.navigate('Register')}>
+                onPress={() => navigation.navigate('UserOrCaregiver')}>
                 <Text style = {styles.text}>
                   CADASTRE-SE
                 </Text>

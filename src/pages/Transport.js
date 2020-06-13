@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, Text, Button,TouchableOpacity, TextInput, SafeAreaView } from 'react-native';
 
-// import { Container } from './styles';
-
 export default function TransportScreen({ navigation }) {
   return (
 

@@ -10,6 +10,7 @@ import {Image,
 } from 'react-native';
 
 import { data } from './Dados';
+import { i }  from './Login'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
@@ -18,7 +19,7 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 
 
-export default function  RegisterScreen ({ navigation, route }) {
+export default function  EditScreen ({ navigation, route }) {
 	const [image, setImage] = useState(null);
 	useEffect(() => {
 		(async () => {
@@ -71,20 +72,12 @@ export default function  RegisterScreen ({ navigation, route }) {
 
 
 function sendData(){
-	for (var i=0; i <= data.length; i++) {
-		if(data[i]['email'] != dados['email'] && data[i]['user'] != dados['user']) {
-			if (i >= data.length-1){
-				data.push(dados);
-				setValidation('Dados cadastrados com sucesso!')
-				break;
-			}		
-		}
-		else{
-			setValidation('Usuário já cadastrado!')
-			break;
-		}
+	if(data[i]['email'] === dados['email'] && data[i]['user'] === dados['user']) {
+		data[i] = dados;
+		setValidation('Dados atualizados com sucesso!')
 	}
 }
+
 
 const dados = {
 	'photoCaregiver': null,
@@ -92,7 +85,7 @@ const dados = {
 	'ageCaregiver': '',
 	'cpfCaregiver': '',
 	'sexoCaregiver': '', 
-	'photo': image,
+	'photo': (image===null ? data[i]['photo'] : image),
 	'name' : nome,
 	'age': idade,
 	'phone': telefone,
@@ -110,10 +103,9 @@ const dados = {
 	'neighborhood': address.district,
 	'state': address.state,
 	'user': usuario,			
-	'password' : senha,
-	'confirmdPassword' : senhaConfirmar,
+	'password' : (senha==='' ? data[i]['password'] : senha),
+	'confirmdPassword' : (senhaConfirmar==='' ? data[i]['confirmdPassword'] : senhaConfirmar),
 }
-
 
 const FormSchema = Yup.object().shape({
 	name: Yup.string()
@@ -133,6 +125,7 @@ const FormSchema = Yup.object().shape({
 		.length(14, '* Digite um CPF válido')
 		.required('* Campo obrigatório'),		
 	email: Yup.string()
+		.oneOf([data[i]['email'], null], '* O e-mail não pode ser alterado')
 		.email('* Digite um e-mail válido')
 		.lowercase('* Somente letras minúsculas')
 		.required('* Campo obrigatório'),
@@ -140,7 +133,7 @@ const FormSchema = Yup.object().shape({
 		.notOneOf(['Selecione', undefined],'* Campo obrigatório'),
 	disabledPerson: Yup.mixed()
 		.notOneOf(['Selecione', undefined],'* Campo obrigatório'),
-	deficiency: Yup.mixed(), //Não sei uma forma de deixar obrigatório sem ficar zuado nos testes 	
+	deficiency: Yup.mixed(), //Não sei como deixar obrigatório	
 	plan: Yup.mixed()
 		.notOneOf(['Selecione', undefined],'* Campo obrigatório'),
 	cep: Yup.string()
@@ -157,15 +150,17 @@ const FormSchema = Yup.object().shape({
 	state: Yup.string()
 		.required('* Campo obrigatório'),
 	user: Yup.string()
+		.oneOf([data[i]['user'], null], '* O usuário não pode ser alterado')
 		.max(20, 'Limite de caracteres atingido')
 		.required('* Campo obrigatório'),
+	oldPassword: Yup.string()
+		.oneOf([data[i]['password'], null], '* Senha antiga não confere')
+		.min(4, 'A senha de ter no mínimo 4 caracteres'),
 	password: Yup.string()
-		.min(4, 'A senha de ter no mínimo 4 caracteres')
-		.required('* Campo obrigatório'),
+		.min(4, 'A senha de ter no mínimo 4 caracteres'),
 	confirmdPassword: Yup.string()
 		.oneOf([Yup.ref('password'), null], '* As senhas não correspondem')
-		.min(4, 'A senha de ter no mínimo 4 caracteres')
-		.required('* Campo obrigatório'),
+		.min(4, 'A senha de ter no mínimo 4 caracteres'),
 });
 
 
@@ -174,46 +169,53 @@ const FormSchema = Yup.object().shape({
 		<ScrollView>
 			<View style={styles.container}>			
 
+				
 				<View style={styles.photoPosition}>
-					{image==null ? 
+				{data[i]['photo']===null ? 
+					(image==null ? 
 					<Icon style={styles.fotoNull} name='account-circle' size={140} color={"#06a"}/>:
-					image && <Image source={{ uri: image }} style={styles.fotoPerson} />}					
+					image && <Image source={{ uri: image }} style={styles.fotoPerson} />) :
+					(image==null ?
+					data[i]['photo'] && <Image source={{ uri: data[i]['photo'] }} style={styles.fotoPerson} />:
+					image && <Image source={{ uri: image }} style={styles.fotoPerson} />)}										
 					<Icon style={styles.photoEdit} name='camera' size={30} color={"#666"} onPress={pickImage} />
 				</View>
 
 				<Formik
 					initialValues={{
-						'name' : '',
-						'age': '',
-						'phone': '',
-						'cellphone': '',
-						'cpf': '',
-						'email' : '',
-						'sexo': '',
-						'disabledPerson': '',
-						'deficiency': '',
-						'plan': '',
-						'cep': '',
-						'street': '',
-						'number': '',
-						'city': '',
-						'neighborhood': '',
-						'state': '',
-						'user': '',			
+						'name' : data[i]['name'],
+						'age': data[i]['age'],
+						'phone': data[i]['phone'],
+						'cellphone': data[i]['cellphone'],
+						'cpf': data[i]['cpf'],
+						'email' : data[i]['email'],
+						'sexo': data[i]['sexo'],
+						'disabledPerson': data[i]['disabledPerson'],
+						'deficiency': data[i]['deficiency'],
+						'plan': data[i]['plan'],
+						'cep': data[i]['cep'],
+						'street': data[i]['street'],
+						'number': data[i]['number'],
+						'city': data[i]['locality'],
+						'neighborhood': data[i]['neighborhood'],
+						'state': data[i]['state'],
+						'number': data[i]['number'],
+						'user': data[i]['user'],
+						'oldPassword' : '',
 						'password' : '',
 						'confirmdPassword': '',
 					}}
 					onSubmit={sendData}
 					validationSchema={FormSchema}
-				/* 	onReset={('')} */				
+				/* 	onReset={('')} */			
 
 				>
 				{({ values, handleChange, handleSubmit, errors, touched, setFieldTouched, setFieldValue, handleReset}) => (
 					<View>
-						<View style={styles.titlePosition2}>
-							<Text style={styles.title2}>DADOS PESSOAIS</Text>
-						</View>
 						<View>
+							<View style={styles.titlePosition2}>
+								<Text style={styles.title2}>DADOS PESSOAIS</Text>
+							</View>
 							<Text style = {styles.smallfont}>Nome</Text>
 								{errors.name && touched.name && 
 								<Text style={styles.validation}>{errors.name}</Text>}
@@ -281,7 +283,7 @@ const FormSchema = Yup.object().shape({
 							<TextInputMask
 								type={'cpf'}
 								style = {styles.input}
-								placeholder = 'CPF'				
+								placeholder = 'CPF'								
 								keyboardType = 'numeric'
 								ref={setCPF(values.cpf)}
 								value={values.cpf}
@@ -377,7 +379,7 @@ const FormSchema = Yup.object().shape({
 
 						<View style={styles.titlePosition2}>
 							<Text style={styles.title2}>ENDEREÇO</Text>
-						</View>								
+						</View>					
 						<View>
 						<Text style = {styles.smallfont}>Buscar por CEP</Text>
 						<View style={styles.validationPosition}>
@@ -398,7 +400,7 @@ const FormSchema = Yup.object().shape({
 							onBlur={() => setFieldTouched('cep', true)}
 							onSubmitEditing ={() => buscar()}/>
 						</View>
-						
+
 						<View>
 							<Text style = {styles.smallfont}>Logradouro</Text>
 								{errors.street && touched.street && 
@@ -422,7 +424,7 @@ const FormSchema = Yup.object().shape({
 								onChangeText={handleChange('number')}
 								onBlur={() => setFieldTouched('number', true)}/>
 						</View>
-						
+				
 						<View>
 							<Text style = {styles.smallfont}>Localidade</Text>
 								{errors.city && touched.city && 
@@ -471,33 +473,53 @@ const FormSchema = Yup.object().shape({
 								onChangeText={handleChange('user')}
 								onBlur={() => setFieldTouched('user', true)}/>
 						</View>
+
+						<View>
+							<Text style = {styles.smallfont}>Senha Antiga</Text>
+								{errors.oldPassword && touched.oldPassword && 
+								<Text style={styles.validation}>{errors.oldPassword}</Text>}
+							<TextInput style = {styles.input}
+								placeholder="Senha"
+								secureTextEntry={true}
+								autoCorrect  = {false}
+								value={values.oldPassword}
+								onChangeText={handleChange('oldPassword')}
+								onBlur={() => setFieldTouched('oldPassword', true)}/>
+						</View>
+						
 						
 						<View>
-							<Text style = {styles.smallfont}>Senha</Text>
-								{errors.password && touched.password && 
-								<Text style={styles.validation}>{errors.password}</Text>}
-							<TextInput style = {styles.input}
+							{(data[i]['password']===values.oldPassword) ?
+							(<Text style = {styles.smallfont}>Nova Senha</Text>) : null}							
+							{(data[i]['password']===values.oldPassword) ? 
+								(errors.password && touched.password && 
+								<Text style={styles.validation}>{errors.password}</Text>) : null}
+							{(data[i]['password']===values.oldPassword) ?
+							(<TextInput style = {styles.input}
 								placeholder="Senha"
 								secureTextEntry={true}
 								autoCorrect  = {false}
 								ref={setSenha(values.password)}
 								value={values.password}
 								onChangeText={handleChange('password')}
-								onBlur={() => setFieldTouched('password', true)}/>
+								onBlur={() => setFieldTouched('password', true)}/>) : null}
 						</View>
 
 						<View>
-							<Text style = {styles.smallfont}>Confirmar Senha</Text>
-								{errors.confirmdPassword && touched.confirmdPassword && 
-								<Text style={styles.validation}>{errors.confirmdPassword}</Text>}
-							<TextInput style = {styles.input}
+							{(data[i]['password']===values.oldPassword) ?
+							(<Text style = {styles.smallfont}>Confirmar Nova Senha</Text>) : null}
+							{(data[i]['password']===values.oldPassword) ?
+								(errors.confirmdPassword && touched.confirmdPassword && 
+								<Text style={styles.validation}>{errors.confirmdPassword}</Text>) : null}
+							{(data[i]['password']===values.oldPassword) ?
+							(<TextInput style = {styles.input}
 								placeholder="Confirmar Senha"
 								secureTextEntry={true}
 								autoCorrect  = {false}
 								ref={setSenhaConfirmar(values.confirmdPassword)}
 								value={values.confirmdPassword}
 								onChangeText={handleChange('confirmdPassword')}
-								onBlur={() => setFieldTouched('confirmdPassword', true)}/>
+								onBlur={() => setFieldTouched('confirmdPassword', true)}/>) : null}
 						</View>
 
 						<View style={styles.messagePosition}>		
@@ -506,18 +528,11 @@ const FormSchema = Yup.object().shape({
 						<Text style={styles.menssage1}>{validation}</Text> }
 						</View>
 						
-
-						{validation!=='Dados cadastrados com sucesso!' ? 
-						(<TouchableOpacity 
+						<TouchableOpacity 
 							style = {styles.button}
 							onPress={handleSubmit}>	
-							<Text style={styles.text}>CADASTRAR</Text>					
-						</TouchableOpacity>) : 
-						(<TouchableOpacity
-							style = {styles.button}
-							onPress={()=> navigation.popToTop()}>	
 							<Text style={styles.text}>CONCLUIR</Text>								
-						</TouchableOpacity>)}
+						</TouchableOpacity>
 
 {/* 						<TouchableOpacity 
 							style = {styles.button}

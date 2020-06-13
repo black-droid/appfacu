@@ -25,7 +25,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.equalityandcare.equalityandcare",
+      "bundleIdentifier": "com.equalityandcare.equalityandcare"
     },
     "android": { 
       "package": "com.equalityandcare.equalityandcare",
