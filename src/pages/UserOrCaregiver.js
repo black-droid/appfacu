@@ -58,13 +58,13 @@ export default function UserOrCaregiverScreen ({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 40,
     alignItems: "center",
     backgroundColor: '#6ccff6',    
   },
   termo: {
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 80,
     margin: 20,
     padding: 10,
     backgroundColor: "#fff",
