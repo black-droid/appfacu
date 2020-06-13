@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "Equality & Care",   
+    "slug": "appmeto",
+    "privacy": "public",
+    "sdkVersion": "37.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#6ccff6"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.equalityandcare.equalityandcare"
+    },
+    "android": { 
+      "package": "com.equalityandcare.equalityandcare",
+      "config": { 
+         "googleMaps": {"apiKey": "AIzaSyB1qbTyz_As_4da5-r7pXXWlIbGG9qg5V0"}    
+      } 
+   }
+  }
+}
