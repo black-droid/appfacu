@@ -1,6 +1,6 @@
 # appfacu
 ### Hi there 👋
-<img src="https://github.com/black-droid/black-droid/blob/main/web-programming-background.png" min-width="400px" max-width="400px" width="400px" align="right" alt="Computador iuriCode">
+<img src="https://github.com/black-droid/appfacu/blob/master/assets/icon.png" min-width="400px" max-width="400px" width="400px" align="right" alt="Computador">
 
 <p align="left"> 
   Esse projeto é a criação de um aplicativo de saude.
